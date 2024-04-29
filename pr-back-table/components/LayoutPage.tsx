@@ -15,7 +15,7 @@ const { Header, Sider, Content } = Layout;
 
 const LayoutPage = ({ children }: Readonly<{ children: React.ReactNode; }>) => {
     const [collapsed, setCollapsed] = useState(false);
-    const [key, setKey] = useState('dashboard');
+    const key = localStorage.getItem("key") || 'dashboard';
     const router = useRouter();
     const {
         token: { colorBgContainer, borderRadiusLG },
@@ -51,9 +51,9 @@ const LayoutPage = ({ children }: Readonly<{ children: React.ReactNode; }>) => {
                         label: 'Task',
                     },
                 ]}
-                onClick={(event) => {
+                onSelect={(event) => {
                     router.push(event.key);
-                    setKey(() => event.key);
+                    localStorage.setItem("key", event.key);
                 }}
                 selectedKeys={[key]}
             />
