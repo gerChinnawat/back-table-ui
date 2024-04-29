@@ -1,9 +1,10 @@
-import Image from "next/image";
+"use client";
+import LoginPage from "@/pages/LoginPage";
 
-export default function Home() {
+const HomePage = () => {
   return (
-    <>
-    Hellow!
-    </>
+    <LoginPage />
   );
-}
+};
+
+export default HomePage;
