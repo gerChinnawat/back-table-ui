@@ -14,6 +14,7 @@ const LoginScreen = () => {
 
     const handleOnLogin = () => {
         console.log(sentState)
+        window.location.href = "dashboard"
     };
 
     return (
