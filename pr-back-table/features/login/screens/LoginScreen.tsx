@@ -1,3 +1,4 @@
+import { useState } from "react";
 import LoginLayout from "../components/LayoutLogin";
 import { Space, Card, Input, Button } from "antd";
 import Image from "next/image";
@@ -6,6 +7,15 @@ import { UserOutlined } from '@ant-design/icons';
 import "../styles/cardLogin.style.css"
 
 const LoginScreen = () => {
+    const [sentState, setSentState] = useState({
+        username: "",
+        password: ""
+    });
+
+    const handleOnLogin = () => {
+        console.log(sentState)
+    };
+
     return (
         <LoginLayout>
             <Space
@@ -29,19 +39,28 @@ const LoginScreen = () => {
                         size="large"
                         placeholder="Username"
                         prefix={<UserOutlined />}
-                        style={{ marginTop: '20px', marginBottom: '20px' }}
+                        style={{ marginTop: '40px', marginBottom: '20px' }}
+                        onChange={(event) => setSentState({
+                            ...sentState,
+                            username: event.target.value
+                        })}
                     />
-                    <Input
+                    <Input.Password
                         size="large"
                         placeholder="Password"
                         prefix={"@"}
                         style={{ marginTop: '10px', marginBottom: '20px' }}
+                        onChange={(event) => setSentState({
+                            ...sentState,
+                            password: event.target.value
+                        })}
                     />
                     <Space
                         direction="horizontal"
                     >
                         <Button
                             size="large"
+                            onClick={handleOnLogin}
                         >
                             Log in
                         </Button>
