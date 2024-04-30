@@ -7,6 +7,7 @@ import { UserOutlined } from '@ant-design/icons';
 import "../styles/cardLogin.style.css"
 import { useRouter } from "next/navigation";
 import { useStore } from "@/components/LayoutPage";
+import userLogin from "../services/userLogin";
 
 const LoginScreen = () => {
     const [sentState, setSentState] = useState({
@@ -16,10 +17,16 @@ const LoginScreen = () => {
     const router = useRouter();
     const getKey = useStore((state:any) => state.getKey);
 
-    const handleOnLogin = () => {
-        console.log(sentState);
-        router.push('dashboard');
-        getKey('/dashboard');
+    const handleOnLogin = async () => {
+        const res = await userLogin(sentState)
+        if (!res.success) {
+            alert(res?.response?.message)
+        } else {
+            alert(res?.response?.message)
+            localStorage.setItem("key", res?.response?.data[0])
+            router.push('dashboard');
+            getKey('/dashboard');
+        };
     };
 
     return (

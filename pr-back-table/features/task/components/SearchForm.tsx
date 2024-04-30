@@ -14,7 +14,7 @@ const SearchForm = () => {
                 classNo: 10,
                 roomNo: 1
             }}
-            style={{ border: "solid 1px #E7E8EA", borderRadius: "6px" }}
+            style={{ border: "solid 1px #E7E8EA", borderRadius: "6px", marginBottom: "24px" }}
         >
             <Row gutter={[36, 0]} style={{ marginTop: "24px" }}>
                 <Col xs={24} sm={24} md={8} lg={4} xl={4} xxl={4} style={{ marginLeft: "12px" }}>
