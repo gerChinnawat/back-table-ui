@@ -11,17 +11,33 @@ import getTaskAPI from "../services/getTaskAPI";
 const TaskScreen = () => {
     const [task, setTask] = useState([])
     useEffect(() => {
-        getTaskAPI()
+        getTaskAPI({
+            classNo: 11,
+            roomNo: 3
+        })
         .then((res) => setTask(res?.response?.data))
         .catch((err) => console.log(err))
     }, [])
+    
+    const handleOnFinish = async (values: any) => {
+        const res = await getTaskAPI(values)
+        console.log(res)
+        if (res?.success) {
+            setTask(res?.response?.data)
+        } else {
+            setTask([])
+        }
+    };
+
     return (
         <LayoutPage>
             <LayoutContent
                 title="Task"
                 icon={<ProfileOutlined />}
             >
-                <SearchForm />
+                <SearchForm
+                    handleOnFinish={handleOnFinish}
+                />
                 <Row>
                     <Table
                         columns={column}

@@ -2,14 +2,14 @@
 import { Form, Select, Row, Col, Button } from "antd";
 import { classList, roomList } from "@/data/dataList";
 
-const SearchForm = () => {
-    const handleOnFinish = (value: any) => {
-        console.log(value)
+const SearchForm = ({ handleOnFinish }: any) => {
+    const onFinish = (value: any) => {
+        handleOnFinish(value)
     };
     return (
         <Form
             layout="horizontal"
-            onFinish={handleOnFinish}
+            onFinish={onFinish}
             initialValues={{
                 classNo: 10,
                 roomNo: 1
