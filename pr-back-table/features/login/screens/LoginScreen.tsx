@@ -14,10 +14,10 @@ const LoginScreen = () => {
         password: ""
     });
     const router = useRouter();
-    const getKey = useStore((state:any) => state.getKey)
+    const getKey = useStore((state:any) => state.getKey);
 
     const handleOnLogin = () => {
-        console.log(sentState)
+        console.log(sentState);
         router.push('dashboard');
         getKey('/dashboard');
     };
