@@ -10,16 +10,28 @@ import {
     ProfileOutlined,
 } from '@ant-design/icons';
 import { Button, Layout, Menu, theme } from 'antd';
+import { create } from 'zustand';
 
 const { Header, Sider, Content } = Layout;
 
-const LayoutPage = ({ children }: Readonly<{ children: React.ReactNode; }>) => {
+const useStore = create((set) => ({
+    key: 'dashboard',
+    getKey: (newKey: string) => set({ key: newKey })
+}));
+
+const LayoutPage = ({ children }: { children: React.ReactNode }) => {
     const [collapsed, setCollapsed] = useState(false);
-    const [key, setKey] = useState('dashboard')
     const router = useRouter();
+    const key = useStore((state: any) => state.key)
+    const getKey = useStore((state:any) => state.getKey)
     const {
         token: { colorBgContainer, borderRadiusLG },
     } = theme.useToken();
+
+    const handleOnClick = ({ key } : { key: string }) => {
+        router.push(key);
+        getKey(key);
+    };
 
     return (
     <Layout style={{ height: "100vh" }}>
@@ -28,34 +40,30 @@ const LayoutPage = ({ children }: Readonly<{ children: React.ReactNode; }>) => {
             <Menu
                 theme="dark"
                 mode="inline"
-                defaultSelectedKeys={[key]}
                 items={[
                     {
-                        key: 'dashboard',
+                        key: '/dashboard',
                         icon: <UserOutlined />,
                         label: 'Dashboard',
                     },
                     {
-                        key: 'student_monitoring',
+                        key: '/student_monitoring',
                         icon: <VideoCameraOutlined />,
                         label: 'Student Monitoring',
                     },
                     {
-                        key: 'task_detail',
+                        key: '/task_detail',
                         icon: <ScheduleOutlined />,
                         label: 'Task Detail',
                     },
                     {
-                        key: 'task',
+                        key: '/task',
                         icon: <ProfileOutlined />,
                         label: 'Task',
                     },
                 ]}
-                onSelect={(event) => {
-                    router.push(event.key);
-                    setKey(event.key);
-                }}
-                selectedKeys={[key]}
+                onClick={handleOnClick}
+                selectedKeys={[ key ]}
             />
         </Sider>
         <Layout>
