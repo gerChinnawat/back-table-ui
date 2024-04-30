@@ -51,7 +51,6 @@ const LayoutPage = ({ children }: { children: React.ReactNode }) => {
             <Menu
                 theme="dark"
                 mode="inline"
-                defaultSelectedKeys={[key]}
                 items={[
                     {
                         key: '/dashboard',

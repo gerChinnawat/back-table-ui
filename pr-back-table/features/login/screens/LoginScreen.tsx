@@ -6,6 +6,7 @@ import prDigitalImg from "@/public/assets/pr_digital.jpg";
 import { UserOutlined } from '@ant-design/icons';
 import "../styles/cardLogin.style.css"
 import { useRouter } from "next/navigation";
+import { useStore } from "@/components/LayoutPage";
 
 const LoginScreen = () => {
     const [sentState, setSentState] = useState({
@@ -13,10 +14,12 @@ const LoginScreen = () => {
         password: ""
     });
     const router = useRouter();
+    const getKey = useStore((state:any) => state.getKey)
 
     const handleOnLogin = () => {
         console.log(sentState)
-        router.push("dashboard");
+        router.push('dashboard');
+        getKey('/dashboard');
     };
 
     return (
