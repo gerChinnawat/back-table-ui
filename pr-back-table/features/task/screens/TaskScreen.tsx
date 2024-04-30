@@ -1,6 +1,7 @@
 import LayoutPage from "@/components/LayoutPage";
 import LayoutContent from "@/components/LayoutContent";
 import { ProfileOutlined } from '@ant-design/icons';
+import SearchForm from "../components/SearchForm";
 
 const TaskScreen = () => {
     return (
@@ -9,7 +10,7 @@ const TaskScreen = () => {
                 title="Task"
                 icon={<ProfileOutlined />}
             >
-                Task
+                <SearchForm />
             </LayoutContent>
         </LayoutPage>
     );
