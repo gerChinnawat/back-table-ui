@@ -1,9 +1,9 @@
-import TaskDetailPage from "@/pages/TaskDetailPage";
+import TaskDetailScreen from "@/features/taskDetail/screens/TaskDetailScreen";
 
-const TaskDetail = () => {
+const TaskDetailPage = () => {
     return (
-        <TaskDetailPage />
+        <TaskDetailScreen />
     );
 };
 
-export default TaskDetail;
+export default TaskDetailPage;

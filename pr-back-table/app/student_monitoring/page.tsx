@@ -1,10 +1,10 @@
 "use client";
-import StudentMonitoringPage from "@/pages/StudentMonitoringPage";
+import StudentMonitoringScreen from "@/features/studentMonitor/screens/StudentMonitoringScreen";
 
-const StudentMonitoring = () => {
+const StudentMonitoringPage = () => {
     return (
-        <StudentMonitoringPage />
+        <StudentMonitoringScreen />
     );
 };
 
-export default StudentMonitoring;
+export default StudentMonitoringPage;

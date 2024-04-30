@@ -1,5 +1,5 @@
 "use client";
-import LoginPage from "@/pages/LoginPage";
+import LoginPage from "@/features/login/screens/LoginScreen";
 
 const HomePage = () => {
   return (

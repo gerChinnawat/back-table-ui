@@ -1,10 +1,10 @@
 "use client";
-import DashboardPage from "@/pages/DashboardPage";
+import DashboardScreen from "@/features/dashboard/screens/DashboardScreen";
 
-const Dashboard = () => {
+const DashboardPage = () => {
     return (
-        <DashboardPage />
+        <DashboardScreen />
     );
 };
 
-export default Dashboard;
+export default DashboardPage;

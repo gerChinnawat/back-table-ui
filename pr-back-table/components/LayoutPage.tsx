@@ -15,7 +15,7 @@ const { Header, Sider, Content } = Layout;
 
 const LayoutPage = ({ children }: Readonly<{ children: React.ReactNode; }>) => {
     const [collapsed, setCollapsed] = useState(false);
-    const key = localStorage.getItem("key") || 'dashboard';
+    const [key, setKey] = useState('dashboard')
     const router = useRouter();
     const {
         token: { colorBgContainer, borderRadiusLG },
@@ -53,7 +53,7 @@ const LayoutPage = ({ children }: Readonly<{ children: React.ReactNode; }>) => {
                 ]}
                 onSelect={(event) => {
                     router.push(event.key);
-                    localStorage.setItem("key", event.key);
+                    setKey(event.key);
                 }}
                 selectedKeys={[key]}
             />

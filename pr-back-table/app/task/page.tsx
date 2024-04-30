@@ -1,9 +1,9 @@
-import TaskPage from "@/pages/TaskPage";
+import TaskScreen from "@/features/task/screens/TaskScreen";
 
-const Task = () => {
+const TaskPage = () => {
     return (
-        <TaskPage />
+        <TaskScreen />
     );
 };
 
-export default Task;
+export default TaskPage;
