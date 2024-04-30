@@ -5,16 +5,18 @@ import Image from "next/image";
 import prDigitalImg from "@/public/assets/pr_digital.jpg";
 import { UserOutlined } from '@ant-design/icons';
 import "../styles/cardLogin.style.css"
+import { useRouter } from "next/navigation";
 
 const LoginScreen = () => {
     const [sentState, setSentState] = useState({
         username: "",
         password: ""
     });
+    const router = useRouter();
 
     const handleOnLogin = () => {
         console.log(sentState)
-        window.location.href = "dashboard"
+        router.push("dashboard");
     };
 
     return (
