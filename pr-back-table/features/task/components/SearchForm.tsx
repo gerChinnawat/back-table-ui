@@ -2,7 +2,7 @@
 import { Form, Select, Row, Col, Button } from "antd";
 import { classList, roomList } from "@/data/dataList";
 
-const SearchForm = ({ handleOnFinish }: any) => {
+const SearchForm = ({ handleOnFinish, loading }: any) => {
     const onFinish = (value: any) => {
         handleOnFinish(value)
     };
@@ -51,6 +51,7 @@ const SearchForm = ({ handleOnFinish }: any) => {
                     <Button
                         htmlType="submit"
                         type="primary"
+                        loading={loading}
                     >
                         Search
                     </Button>

@@ -12,28 +12,45 @@ import getTaskAPI from "@/features/task/services/getTaskAPI";
 const TaskDetailScreen = () => {
     const [taskDetail, setTaskDetail] = useState([])
     const [task, setTask] = useState([])
+    const [isLoadingTaskDetail, setIsLoadingTaskDetail] = useState(true);
+    const [isLoadingTask, setIsLoadingTask] = useState(true);
+
     useEffect(() => {
         getTaskDetailAPI({
             classNo: 11,
             roomNo: 3
         })
-        .then((res) => setTaskDetail(res?.response?.data))
+        .then((res) => {
+            if (res?.success) {
+                setTaskDetail(res?.response?.data);
+                setIsLoadingTaskDetail(false);
+            };
+        })
         .catch((err) => console.log(err))
 
         getTaskAPI({
             classNo: 11,
             roomNo: 3
         })
-        .then((res) => setTask(res?.response?.data))
+        .then((res) => {
+            setTask(res?.response?.data);
+            setIsLoadingTask(false);
+        })
         .catch((err) => console.log(err))
     }, [])
     
     const handleOnFinish = async (values: any) => {
         const resTaskDetail = await getTaskDetailAPI(values);
         const resTask = await getTaskAPI(values);
+        setIsLoadingTaskDetail(true)
+        setIsLoadingTask(true);
         if (resTask?.success && resTaskDetail?.success) {
             setTaskDetail(resTaskDetail?.response?.data);
             setTask(resTask?.response?.data);
+            setTimeout(() => {
+                setIsLoadingTaskDetail(false);
+                setIsLoadingTask(false);
+            }, 500);
         } else {
             setTaskDetail([])
             setTask([])
@@ -47,6 +64,7 @@ const TaskDetailScreen = () => {
             >
                 <SearchForm
                     handleOnFinish={handleOnFinish}
+                    loading={isLoadingTaskDetail || isLoadingTask}
                 />
                 <Row>
                     <Table
@@ -55,6 +73,7 @@ const TaskDetailScreen = () => {
                         rowKey="id"
                         scroll={{ y: "35vh" }}
                         pagination={false}
+                        loading={isLoadingTaskDetail || isLoadingTask}
                     />
                 </Row>
             </LayoutContent>

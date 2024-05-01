@@ -40,6 +40,7 @@ const StudentMonitoringScreen = () => {
             >
                 <SearchForm
                     handleOnFinish={handleOnFinish}
+                    loading={isLoading}
                 />
                 <Row>
                     <Table

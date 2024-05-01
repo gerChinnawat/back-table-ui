@@ -10,19 +10,29 @@ import getTaskAPI from "../services/getTaskAPI";
 
 const TaskScreen = () => {
     const [task, setTask] = useState([])
+    const [isLoading, setIsLoading] = useState(true);
     useEffect(() => {
         getTaskAPI({
             classNo: 11,
             roomNo: 3
         })
-        .then((res) => setTask(res?.response?.data))
+        .then((res) => {
+            if (res?.success) {
+                setTask(res?.response?.data);
+                setIsLoading(false);
+            }
+        })
         .catch((err) => console.log(err))
     }, [])
     
     const handleOnFinish = async (values: any) => {
         const res = await getTaskAPI(values);
+        setIsLoading(true);
         if (res?.success) {
-            setTask(res?.response?.data)
+            setTask(res?.response?.data);
+            setTimeout(() => {
+                setIsLoading(false);
+            }, 500);
         } else {
             setTask([])
         }
@@ -36,6 +46,7 @@ const TaskScreen = () => {
             >
                 <SearchForm
                     handleOnFinish={handleOnFinish}
+                    loading={isLoading}
                 />
                 <Row>
                     <Table
@@ -44,6 +55,7 @@ const TaskScreen = () => {
                         rowKey="taskId"
                         scroll={{ y: "35vh" }}
                         pagination={false}
+                        loading={isLoading}
                     />
                 </Row>
             </LayoutContent>
