@@ -10,42 +10,31 @@ interface DataType {
 
 export const column: TableColumnsType<DataType> = [
     {
-        key: 'taskId',
-        title: 'Task Id',
-        dataIndex: 'taskId',
-        width: 150,
+        title: 'No',
+        width: 50,
         align: "center",
+        render: (text, record, index) => index + 1,
     },
     {
-        key: 'taskName',
         title: 'Task Name',
         dataIndex: 'taskName',
         width: 200,
         align: "center",
     },
     {
-        key: 'roomNo',
-        title: 'Room No',
-        dataIndex: 'roomNo',
+        title: 'Class',
         width: 100,
         align: "center",
+        render: (item) => `${item?.classNo - 9}/${item?.roomNo}`
     },
     {
-        key: 'classNo',
-        title: 'Class No',
-        dataIndex: 'classNo',
-        width: 100,
-        align: "center",
-    },
-    {
-        key: 'isActive',
         title: 'Is Active',
         dataIndex: 'isActive',
         width: 100,
         align: "center",
+        render: (item) => item === "1" ? "true" : "false"
     },
     {
-        key: 'updatedAt',
         title: 'Created At',
         dataIndex: 'updatedAt',
         width: 150,

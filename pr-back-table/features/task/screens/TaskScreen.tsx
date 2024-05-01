@@ -20,8 +20,7 @@ const TaskScreen = () => {
     }, [])
     
     const handleOnFinish = async (values: any) => {
-        const res = await getTaskAPI(values)
-        console.log(res)
+        const res = await getTaskAPI(values);
         if (res?.success) {
             setTask(res?.response?.data)
         } else {
