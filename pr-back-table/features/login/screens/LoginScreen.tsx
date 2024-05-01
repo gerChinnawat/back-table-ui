@@ -1,6 +1,6 @@
 import { useState } from "react";
 import LoginLayout from "../components/LayoutLogin";
-import { Space, Card, Input, Button } from "antd";
+import { Space, Card, Input, Button, message } from "antd";
 import Image from "next/image";
 import prDigitalImg from "@/public/assets/pr_digital.jpg";
 import { UserOutlined } from '@ant-design/icons';
@@ -14,22 +14,35 @@ const LoginScreen = () => {
         username: "",
         password: ""
     });
+    const [messageApi, contextHolder] = message.useMessage();
     const router = useRouter();
     const getKey = useStore((state:any) => state.getKey);
 
     const handleOnLogin = async () => {
         const res = await userLogin(sentState)
         if (!res.success) {
-            alert(res?.response?.message)
+            onMessageSend({ isSuccess: false, message: res?.response?.message })
         } else {
-            alert(res?.response?.message)
+            onMessageSend({ isSuccess: true, message: res?.response?.message })
             localStorage.setItem("key", res?.response?.data[0])
-            router.push('dashboard');
             getKey('/dashboard');
+            setTimeout(() => {
+                router.push('dashboard');
+            }, 500);
         };
     };
 
+    const onMessageSend = ({isSuccess, message } : { isSuccess: boolean, message: string }) => {
+        messageApi.open({
+            type: isSuccess ? "success" : "error",
+            content: message,
+        });
+    };
+
+
     return (
+        <>
+        {contextHolder}
         <LoginLayout>
             <Space
                 direction="vertical"
@@ -81,6 +94,7 @@ const LoginScreen = () => {
                 </Card>
             </Space>
         </LoginLayout>
+        </>
     );
 };
 
