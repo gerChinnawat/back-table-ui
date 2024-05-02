@@ -2,7 +2,7 @@
 import { Form, Select, Row, Col, Button } from "antd";
 import { classList, roomList } from "@/data/dataList";
 
-const SearchForm = ({ handleOnFinish, loading }: any) => {
+const SearchForm = ({ handleOnFinish, loading, handleOnAddTask, initialValues }: any) => {
     const onFinish = (value: any) => {
         handleOnFinish(value)
     };
@@ -10,10 +10,7 @@ const SearchForm = ({ handleOnFinish, loading }: any) => {
         <Form
             layout="horizontal"
             onFinish={onFinish}
-            initialValues={{
-                classNo: 10,
-                roomNo: 1
-            }}
+            initialValues={initialValues}
             style={{ border: "solid 1px #E7E8EA", borderRadius: "6px", marginBottom: "24px" }}
         >
             <Row gutter={[36, 0]} style={{ marginTop: "24px" }}>
@@ -23,7 +20,7 @@ const SearchForm = ({ handleOnFinish, loading }: any) => {
                         name="classNo"
                         required
                     >
-                        <Select defaultValue={10}>
+                        <Select defaultValue={initialValues?.classNo}>
                             {classList.map((item) => {
                                 return (
                                     <Select.Option key={item.id} value={item.value} >{item.classNo}</Select.Option>
@@ -38,7 +35,7 @@ const SearchForm = ({ handleOnFinish, loading }: any) => {
                         name="roomNo"
                         required
                     >
-                        <Select defaultValue={1}>
+                        <Select defaultValue={initialValues?.roomNo}>
                             {roomList.map((item) => {
                                 return (
                                     <Select.Option key={item.id} value={item.value} >{item.roomNo}</Select.Option>
@@ -54,6 +51,15 @@ const SearchForm = ({ handleOnFinish, loading }: any) => {
                         loading={loading}
                     >
                         Search
+                    </Button>
+                </Col>
+                <Col>
+                    <Button
+                        style={{ backgroundColor: "#001529", color: "white", borderColor: "#001529" }}
+                        onClick={handleOnAddTask}
+                        loading={loading}
+                    >
+                        Add Task
                     </Button>
                 </Col>
             </Row>

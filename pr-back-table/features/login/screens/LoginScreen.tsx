@@ -32,7 +32,7 @@ const LoginScreen = () => {
         };
     };
 
-    const onMessageSend = ({isSuccess, message } : { isSuccess: boolean, message: string }) => {
+    const onMessageSend = ({ isSuccess, message } : { isSuccess: boolean, message: string }) => {
         messageApi.open({
             type: isSuccess ? "success" : "error",
             content: message,
@@ -86,6 +86,7 @@ const LoginScreen = () => {
                     >
                         <Button
                             size="large"
+                            type="primary"
                             onClick={handleOnLogin}
                         >
                             Log in

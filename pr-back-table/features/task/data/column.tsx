@@ -28,11 +28,11 @@ export const column: TableColumnsType<DataType> = [
         render: (item) => `${item?.classNo - 9}/${item?.roomNo}`
     },
     {
-        title: 'Is Active',
-        dataIndex: 'isActive',
-        width: 100,
+        title: 'Dead Line',
+        dataIndex: 'deadLine',
+        width: 150,
         align: "center",
-        render: (item) => item === "1" ? "true" : "false"
+        render: (datetime) => moment(datetime).format("DD/MM/YYYY")
     },
     {
         title: 'Created At',
@@ -40,5 +40,12 @@ export const column: TableColumnsType<DataType> = [
         width: 150,
         align: "center",
         render: (data) => moment(data).format("DD/MM/YYYY") 
+    },
+    {
+        title: 'Is Active',
+        dataIndex: 'isActive',
+        width: 100,
+        align: "center",
+        render: (item) => item === "1" ? "true" : "false"
     },
 ];
