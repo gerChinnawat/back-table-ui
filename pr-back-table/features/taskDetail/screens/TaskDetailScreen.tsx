@@ -14,7 +14,7 @@ const TaskDetailScreen = () => {
     const [task, setTask] = useState([])
     const [isLoadingTaskDetail, setIsLoadingTaskDetail] = useState(true);
     const [isLoadingTask, setIsLoadingTask] = useState(true);
-
+    const { widthCount, fullColumn } = columnTaskDetail(task)
     useEffect(() => {
         getTaskDetailAPI({
             classNo: 11,
@@ -68,10 +68,10 @@ const TaskDetailScreen = () => {
                 />
                 <Row>
                     <Table
-                        columns={columnTaskDetail(task)}
+                        columns={fullColumn}
                         dataSource={taskDetail || []}
                         rowKey="id"
-                        scroll={{ y: "35vh" }}
+                        scroll={{ y: "35vh" , x: (widthCount + 750)}}
                         pagination={false}
                         loading={isLoadingTaskDetail || isLoadingTask}
                     />

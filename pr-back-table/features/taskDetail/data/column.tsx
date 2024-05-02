@@ -1,7 +1,6 @@
 "use client";
 
 export const columnTaskDetail = (tasks: any[]) => {
-
     const column: any[] = [
         {
             title: 'No',
@@ -32,6 +31,7 @@ export const columnTaskDetail = (tasks: any[]) => {
 
     let fullColumn: any[] = column;
     let count: number = 0;
+    let widthCount = 0;
     for (let index=0; index<tasks?.length+1 ; index++) {
         if (index === tasks?.length) {
             fullColumn = [
@@ -66,5 +66,9 @@ export const columnTaskDetail = (tasks: any[]) => {
         
     }
 
-    return fullColumn;
+    for (let indexFullColumn = 0; indexFullColumn<fullColumn.length ; indexFullColumn++) {
+        widthCount = widthCount + fullColumn[indexFullColumn].width
+    }
+
+    return { widthCount, fullColumn };
 }
