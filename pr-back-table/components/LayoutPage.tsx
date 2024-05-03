@@ -10,25 +10,8 @@ import {
     ProfileOutlined,
 } from '@ant-design/icons';
 import { Button, Layout, Menu, theme } from 'antd';
-import { create } from 'zustand';
-import { persist, createJSONStorage } from 'zustand/middleware';
-
+import { useStore } from "@/libs/zustand/store";
 const { Header, Sider, Content } = Layout;
-
-export const useStore = create(
-    persist(
-        (set, get) => ({
-                    key: '/dashboard',
-                    getKey: (newKey: string) => set({ key: newKey }),
-                }
-            )
-        ,
-        {
-            name: "back-table",
-            storage: createJSONStorage(() => sessionStorage)
-        },
-    ),
-);
 
 const LayoutPage = ({ children }: { children: React.ReactNode }) => {
     const [collapsed, setCollapsed] = useState(false);

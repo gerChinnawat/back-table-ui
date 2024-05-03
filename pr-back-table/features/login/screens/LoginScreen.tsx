@@ -6,7 +6,7 @@ import prDigitalImg from "@/public/assets/pr_digital.jpg";
 import { UserOutlined } from '@ant-design/icons';
 import "../styles/cardLogin.style.css"
 import { useRouter } from "next/navigation";
-import { useStore } from "@/components/LayoutPage";
+import { useStore } from "@/libs/zustand/store";
 import userLogin from "../services/userLogin";
 
 const LoginScreen = () => {

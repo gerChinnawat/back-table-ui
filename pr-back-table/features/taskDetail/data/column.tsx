@@ -52,7 +52,7 @@ export const columnTaskDetail = (tasks: any[]) => {
                     width: 60,
                     align: "center",
                     render: (item: any) => {
-                        return <DetailButton />
+                        return <DetailButton studentDetail={item} />
                     },
                 }
             ]
