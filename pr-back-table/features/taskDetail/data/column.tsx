@@ -1,4 +1,5 @@
 "use client";
+import DetailButton from "../components/DetailButton";
 
 export const columnTaskDetail = (tasks: any[]) => {
     const column: any[] = [
@@ -17,13 +18,13 @@ export const columnTaskDetail = (tasks: any[]) => {
         },
         {
             title: 'Name',
-            width: 120,
+            width: 140,
             align: "start",
             render: (item: any) => `${item?.prename} ${item?.name} ${item?.surname}` ,
         },
         {
             title: 'Class',
-            width: 40,
+            width: 50,
             align: "center",
             render: (item: any) => `${item?.class_now - 9}/${item?.room}`
         },
@@ -44,7 +45,15 @@ export const columnTaskDetail = (tasks: any[]) => {
                         const countSum = count;
                         count = 0;
                         return `${countSum}/${tasks.length}`
-                    }
+                    },
+                },
+                {
+                    title: "Action",
+                    width: 60,
+                    align: "center",
+                    render: (item: any) => {
+                        return <DetailButton />
+                    },
                 }
             ]
         } else {

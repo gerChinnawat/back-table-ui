@@ -35,7 +35,7 @@ const StudentMonitoringScreen = () => {
     return (
         <LayoutPage>
             <LayoutContent
-                title="StudentMonitoring"
+                title="Student Monitoring"
                 icon={<VideoCameraOutlined />}
             >
                 <SearchForm

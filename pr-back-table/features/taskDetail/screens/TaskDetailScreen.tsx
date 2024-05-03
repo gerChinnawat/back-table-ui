@@ -17,8 +17,8 @@ const TaskDetailScreen = () => {
     const { widthCount, fullColumn } = columnTaskDetail(task)
     useEffect(() => {
         getTaskDetailAPI({
-            classNo: 11,
-            roomNo: 3
+            classNo: 10,
+            roomNo: 1
         })
         .then((res) => {
             if (res?.success) {
@@ -29,8 +29,8 @@ const TaskDetailScreen = () => {
         .catch((err) => console.log(err))
 
         getTaskAPI({
-            classNo: 11,
-            roomNo: 3
+            classNo: 10,
+            roomNo: 1
         })
         .then((res) => {
             setTask(res?.response?.data);
@@ -71,7 +71,7 @@ const TaskDetailScreen = () => {
                         columns={fullColumn}
                         dataSource={taskDetail || []}
                         rowKey="id"
-                        scroll={{ y: "35vh" , x: (widthCount + 750)}}
+                        scroll={{ y: "45vh" , x: (widthCount + 750)}}
                         pagination={false}
                         loading={isLoadingTaskDetail || isLoadingTask}
                     />
