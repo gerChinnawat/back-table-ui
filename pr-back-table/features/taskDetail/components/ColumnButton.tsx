@@ -4,6 +4,8 @@ import { useStore } from "@/libs/zustand/store";
 const ColumnButton = ({ taskTakingDetail }: any) => {
     const getModalOpen = useStore((state:any) => state.getModalOpen)
     const getTaskTakingDetail = useStore((state:any) => state.getTaskTakingDetail)
+    const getEditeTaskTaking = useStore((state:any) => state.getEditeTaskTaking)
+    const editeTaskTaking = useStore((state:any) => state.editeTaskTaking)
     return (
         <Button
             type="primary"
@@ -12,6 +14,10 @@ const ColumnButton = ({ taskTakingDetail }: any) => {
                 getTaskTakingDetail({
                     taskName: taskTakingDetail?.task?.taskName,
                     deadLine: taskTakingDetail?.task?.deadLine,
+                })
+                getEditeTaskTaking({
+                    ...editeTaskTaking,
+                    taskTakingId: taskTakingDetail?.taskTakingId
                 })
             }}
         >

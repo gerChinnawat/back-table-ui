@@ -1,5 +1,6 @@
 import moment from "moment";
 import ColumnButton from "../components/ColumnButton";
+import { Image } from "antd";
 
 export const  taskTakingColumn = () => {
     const column: any[] = 
@@ -27,14 +28,14 @@ export const  taskTakingColumn = () => {
             width: 200,
             dataIndex: 'picture',
             align: "center",
-            render: (item: any) => item === null ? "-" : "ส่งแล้ว",
+            render: (item: any) => item === null ? "-" : <Image alt="" src={item} width={200} height={100}/>,
         },
         {
             title: 'Comment',
             width: 100,
             dataIndex: 'comment',
             align: "start",
-            render: (item: any) => item === null ? "-" : "ส่งแล้ว",
+            render: (item: any) => item === null ? "-" : item,
         },
         {
             title: 'Status',

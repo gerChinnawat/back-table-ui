@@ -1,18 +1,28 @@
-import { Modal, Form, Row, Col, Input, Button, Upload, Checkbox } from "antd";
+"use client";
+import { Modal, Form, Row, Col, Input, Button, Upload, Checkbox, Image } from "antd";
 import moment from "moment";
 import { UploadOutlined } from '@ant-design/icons';
+import { useStore } from "@/libs/zustand/store";
+import appConfig from "@/config/app.config";
 
 const { TextArea } = Input;
 
 const EditTaskTakingDetailModal = ({ isModalOpen, handleCancel, onFinish, taskName, deadLine }: any) => {
+    const [ form ] = Form.useForm();
+    const editeTaskTaking = useStore((state:any) => state.editeTaskTaking);
+    const getEditeTaskTaking = useStore((state:any) => state.getEditeTaskTaking);
+
     return (
-        <Modal title="Edit Task Taking" open={isModalOpen} onCancel={handleCancel} centered footer={null}>
+        <Modal
+            title="Edit Task Taking"
+            open={isModalOpen}
+            onCancel={handleCancel}
+            centered
+            footer={null}
+        >
             <Form
                 onFinish={onFinish}
-                initialValues={{
-                    comment: "",
-                    isActive: false,
-                }}
+                form={form}
             >
                 <Row gutter={[0, 0]} style={{ marginTop: "12px" }}>
                     <p>Task Name: {taskName}</p>
@@ -24,13 +34,28 @@ const EditTaskTakingDetailModal = ({ isModalOpen, handleCancel, onFinish, taskNa
                     <Col xs={24} sm={24} md={24} lg={12} xl={12} xxl={12}>
                         <Form.Item
                             label="Picture:"
-                            name="picture"
                             required
                         >
-                            <Upload>
+                            <Upload
+                                action={appConfig.service_url + "/upload_image"}
+                                maxCount={1}
+                                onChange={(event: any) => {
+                                    if (event?.file?.response?.response?.data[0] !== undefined || event?.file?.response?.response?.data[0] !== null) {
+                                        getEditeTaskTaking({
+                                            ...editeTaskTaking,
+                                            picture: event?.file?.response?.response?.data[0],
+                                        })
+                                    } else {
+                                        getEditeTaskTaking({
+                                            ...editeTaskTaking,
+                                            picture: null,
+                                        })
+                                    }
+                                }}
+                            >
                                 <Button icon={<UploadOutlined />}>Click to Upload</Button>
                             </Upload>
-                        </Form.Item>
+                            </Form.Item>
                     </Col>
                 </Row>
                 <Row gutter={[12, 0]}>
@@ -42,6 +67,10 @@ const EditTaskTakingDetailModal = ({ isModalOpen, handleCancel, onFinish, taskNa
                         >
                             <TextArea
                                 rows={4}
+                                onChange={(event) => getEditeTaskTaking({
+                                    ...editeTaskTaking,
+                                    comment: event.target.value,
+                                })}
                             />
                         </Form.Item>
                     </Col>
@@ -53,7 +82,12 @@ const EditTaskTakingDetailModal = ({ isModalOpen, handleCancel, onFinish, taskNa
                             name="isActive"
                             required
                         >
-                            <Checkbox>Is Finish</Checkbox>
+                            <Checkbox
+                                onChange={(event) => getEditeTaskTaking({
+                                    ...editeTaskTaking,
+                                    isActive: event.target.checked,
+                                })}
+                            >Is Finish</Checkbox>
                         </Form.Item>
                     </Col>
                 </Row>
@@ -69,7 +103,20 @@ const EditTaskTakingDetailModal = ({ isModalOpen, handleCancel, onFinish, taskNa
                     <Col>
                         <Button
                             type="default"
-                            onClick={handleCancel}
+                            onClick={(event: any) => {
+                                getEditeTaskTaking({
+                                    taskTakingId: "",
+                                    picture: null,
+                                    comment: "",
+                                    isActive: false,
+                                })
+                                handleCancel(event)
+                                form.setFieldsValue({
+                                    picture: null,
+                                    comment: "",
+                                    isActive: false,
+                                })
+                            }}
                         >
                             Cancel
                         </Button>

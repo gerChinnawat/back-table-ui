@@ -16,4 +16,11 @@ export const createTaskTakingDetailSlice = (set: any) => ({
         deadLine: null,
     },
     getTaskTakingDetail: (newValue: any) => set((state: any) => ({ ...state, taskTakingDetail: newValue })),
+    editeTaskTaking: {
+        taskTakingId: "",
+        picture: null,
+        comment: "",
+        isActive: false,
+    },
+    getEditeTaskTaking: (newValue: any) => set((state: any) => ({ ...state, editeTaskTaking: newValue })),
 });
