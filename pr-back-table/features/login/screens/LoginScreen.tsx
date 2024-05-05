@@ -25,9 +25,9 @@ const LoginScreen = () => {
         } else {
             onMessageSend({ isSuccess: true, message: res?.response?.message })
             localStorage.setItem("key", res?.response?.data[0])
-            getKey('/dashboard');
+            getKey('/task_detail');
             setTimeout(() => {
-                router.push('dashboard');
+                router.push('task_detail');
             }, 500);
         };
     };

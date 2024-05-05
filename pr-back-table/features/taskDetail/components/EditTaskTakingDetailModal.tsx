@@ -78,7 +78,7 @@ const EditTaskTakingDetailModal = ({ isModalOpen, handleCancel, onFinish, taskNa
                 <Row gutter={[0, 0]}>
                     <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
                         <Form.Item
-                            label="Status:"
+                            label="Not Finish:"
                             name="isActive"
                             required
                         >

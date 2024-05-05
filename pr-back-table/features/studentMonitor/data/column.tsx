@@ -35,15 +35,27 @@ export const column: TableColumnsType<DataType> = [
         render: (item: any) => `${item?.class_now - 9}/${item?.room}`
     },
     {
+        title: 'Attendance',
+        dataIndex: 'attendance_count',
+        width: 60,
+        align: "center",
+    },
+    {
         title: 'Attendance(%)',
         dataIndex: 'attendance_percentage',
+        width: 70,
+        align: "center",
+    },
+    {
+        title: 'Task Taking',
+        dataIndex: 'taskTaking_count',
         width: 60,
         align: "center",
     },
     {
         title: 'Task Taking(%)',
         dataIndex: 'taskTaking_percentage',
-        width: 60,
+        width: 70,
         align: "center",
     },
 ];

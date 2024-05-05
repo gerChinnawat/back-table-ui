@@ -9,8 +9,9 @@ import {
     ScheduleOutlined,
     ProfileOutlined,
 } from '@ant-design/icons';
-import { Button, Layout, Menu, theme } from 'antd';
+import { Button, Layout, Menu, theme, Row } from 'antd';
 import { useStore } from "@/libs/zustand/store";
+
 const { Header, Sider, Content } = Layout;
 
 const LayoutPage = ({ children }: { children: React.ReactNode }) => {
@@ -35,16 +36,11 @@ const LayoutPage = ({ children }: { children: React.ReactNode }) => {
                 theme="dark"
                 mode="inline"
                 items={[
-                    {
-                        key: '/dashboard',
-                        icon: <UserOutlined />,
-                        label: 'Dashboard',
-                    },
-                    {
-                        key: '/student_monitoring',
-                        icon: <VideoCameraOutlined />,
-                        label: 'Student Monitoring',
-                    },
+                    // {
+                    //     key: '/dashboard',
+                    //     icon: <UserOutlined />,
+                    //     label: 'Dashboard',
+                    // },
                     {
                         key: '/task_detail',
                         icon: <ScheduleOutlined />,
@@ -55,6 +51,11 @@ const LayoutPage = ({ children }: { children: React.ReactNode }) => {
                         icon: <ProfileOutlined />,
                         label: 'Task',
                     },
+                    {
+                        key: '/student_monitoring',
+                        icon: <VideoCameraOutlined />,
+                        label: 'Student Monitoring',
+                    },
                 ]}
                 onClick={handleOnClick}
                 selectedKeys={[ key ]}
@@ -62,16 +63,22 @@ const LayoutPage = ({ children }: { children: React.ReactNode }) => {
         </Sider>
         <Layout>
             <Header style={{ padding: 0, background: colorBgContainer }}>
-                <Button
-                    type="text"
-                    icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
-                    onClick={() => setCollapsed(!collapsed)}
-                    style={{
-                    fontSize: '16px',
-                    width: 64,
-                    height: 64,
-                    }}
-                />
+                <Row justify={"space-between"}>
+                    <Button
+                        type="text"
+                        icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+                        onClick={() => setCollapsed(!collapsed)}
+                        style={{
+                        fontSize: '16px',
+                        width: 64,
+                        height: 64,
+                        }}
+                    />
+                    <UserOutlined
+                        style={{ fontSize: "18px", marginRight: "24px" }}
+                        onClick={() => router.push("/")}
+                    />
+                </Row>
             </Header>
             <Content
                 style={{
