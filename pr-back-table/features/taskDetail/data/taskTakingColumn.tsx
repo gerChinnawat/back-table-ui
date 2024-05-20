@@ -32,7 +32,7 @@ export const  taskTakingColumn = () => {
         },
         {
             title: 'Comment',
-            width: 100,
+            width: 170,
             dataIndex: 'comment',
             align: "start",
             render: (item: any) => item === null ? "-" : item,

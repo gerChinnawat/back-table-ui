@@ -42,6 +42,11 @@ const LayoutPage = ({ children }: { children: React.ReactNode }) => {
                     //     label: 'Dashboard',
                     // },
                     {
+                        key: '/student_monitoring',
+                        icon: <VideoCameraOutlined />,
+                        label: 'Student Monitoring',
+                    },
+                    {
                         key: '/task_detail',
                         icon: <ScheduleOutlined />,
                         label: 'Task Detail',
@@ -50,11 +55,6 @@ const LayoutPage = ({ children }: { children: React.ReactNode }) => {
                         key: '/task',
                         icon: <ProfileOutlined />,
                         label: 'Task',
-                    },
-                    {
-                        key: '/student_monitoring',
-                        icon: <VideoCameraOutlined />,
-                        label: 'Student Monitoring',
                     },
                 ]}
                 onClick={handleOnClick}

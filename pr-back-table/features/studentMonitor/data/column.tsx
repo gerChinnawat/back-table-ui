@@ -14,48 +14,55 @@ export const column: TableColumnsType<DataType> = [
         dataIndex: 'student_number',
         width: 30,
         align: "center",
+        render: (text: string, record: any, index: any) => index + 1
     },
     {
-        key: 'id',
+        title: 'Student No',
+        width: 70,
+        align: "center",
+        render: (item: any) => `${item?.student_detail?.student_number}`
+    },
+    {
+        key: 'student_id',
         title: 'Student Id',
-        dataIndex: 'id',
+        dataIndex: 'student_id',
         width: 60,
         align: "center",
     },
     {
         title: 'Name',
-        width: 120,
+        width: 110,
         align: "start",
-        render: (item: any) => `${item?.prename} ${item?.name} ${item?.surname}` ,
+        render: (item: any) => `${item?.student_detail?.prename} ${item?.student_detail?.name} ${item?.student_detail?.surname}` ,
     },
     {
         title: 'Class',
         width: 40,
         align: "center",
-        render: (item: any) => `${item?.class_now - 9}/${item?.room}`
+        render: (item: any) => `${item?.student_detail?.class_now - 9}/${item?.student_detail?.room}`
     },
     {
         title: 'Attendance',
-        dataIndex: 'attendance_count',
         width: 60,
         align: "center",
+        render: (item: any) => `${item?.attendance_count === null ? '-' : item?.attendance_count}`
     },
     {
         title: 'Attendance(%)',
-        dataIndex: 'attendance_percentage',
         width: 70,
         align: "center",
+        render: (item: any) => `${item?.attendance_percentage === null ? '-' : item?.attendance_percentage}`
     },
     {
         title: 'Task Taking',
-        dataIndex: 'taskTaking_count',
         width: 60,
         align: "center",
+        render: (item: any) => `${item?.taskTaking_count === null ? '-' : item?.taskTaking_count}`
     },
     {
         title: 'Task Taking(%)',
-        dataIndex: 'taskTaking_percentage',
         width: 70,
         align: "center",
+        render: (item: any) => `${item?.taskTaking_percentage === null ? '-' : item?.taskTaking_percentage}`
     },
 ];

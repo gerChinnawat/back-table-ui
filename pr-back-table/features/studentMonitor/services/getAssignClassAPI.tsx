@@ -1,12 +1,12 @@
 import appConfig from "@/config/app.config";
 import axios from "axios";
 
-const getMonitoringAPI = async ({ assignClassId }: { assignClassId: string }) => {
+const getAssignClassAPI = async () => {
     try {
         const token = localStorage.getItem("key");
-        const res = await axios.get(appConfig.service_url + "/monitor", {
+        const res = await axios.get(appConfig.service_url + "/assign_class", {
                 params: {
-                    assignClassId,
+                    isActive: 1,
                 },
                 headers: {
                     "Authorization": token,
@@ -21,4 +21,4 @@ const getMonitoringAPI = async ({ assignClassId }: { assignClassId: string }) =>
     }
 };
 
-export default getMonitoringAPI;
+export default getAssignClassAPI;

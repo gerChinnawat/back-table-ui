@@ -63,4 +63,19 @@ export const roomList = [
         roomNo: "9",
         value: 9,
     },
+    {
+        id: 10,
+        roomNo: "10",
+        value: 10,
+    },
+    {
+        id: 11,
+        roomNo: "11",
+        value: 11,
+    },
+    {
+        id: 12,
+        roomNo: "12",
+        value: 12,
+    },
 ];

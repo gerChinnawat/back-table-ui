@@ -7,19 +7,28 @@ import { Table, Row } from "antd";
 import { column } from "../data/column";
 import { useState, useEffect } from "react";
 import getMonitoringAPI from "../services/getMonitoringAPI";
+import getAssignClassAPI from "../services/getAssignClassAPI";
 
 const StudentMonitoringScreen = () => {
     const [monitoring, setMonitoring] = useState([]);
+    const [assignClass, setAssignClass] = useState([]);
     const [isLoading, setIdLoading] = useState(true);
 
     useEffect(() => {
-        getMonitoringAPI({ class_now: 11, room_now: 3 })
-        .then((res) => {
-            if (res?.success) {
-                setMonitoring(res?.response?.data);
-                setIdLoading(false);
-            }
+        getAssignClassAPI()
+        .then((resAssign) => {
+            if(resAssign?.success) {
+                setAssignClass(resAssign?.response?.data);
+                getMonitoringAPI({ assignClassId: resAssign?.response?.data[0]?.assignClassId })
+                .then((res) => {
+                    if (res?.success) {
+                        setMonitoring(res?.response?.data);
+                        setIdLoading(false);
+                    }
+                });
+            };
         })
+        
     }, [])
 
     const handleOnFinish = async (values: any) => {
