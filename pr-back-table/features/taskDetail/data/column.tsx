@@ -13,18 +13,18 @@ export const columnTaskDetail = (tasks: any[]) => {
             key: 'id',
             title: 'Student Id',
             dataIndex: 'id',
-            width: 60,
+            width: 50,
             align: "center",
         },
         {
             title: 'Name',
-            width: 140,
+            width: 80,
             align: "start",
             render: (item: any) => `${item?.prename} ${item?.name} ${item?.surname}` ,
         },
         {
             title: 'Class',
-            width: 50,
+            width: 30,
             align: "center",
             render: (item: any) => `${item?.class_now - 9}/${item?.room}`
         },
@@ -39,7 +39,7 @@ export const columnTaskDetail = (tasks: any[]) => {
                 ...fullColumn,
                 {
                     title: "สรุป",
-                    width: 60,
+                    width: 30,
                     align: "center",
                     render: (item: any) => {
                         const countSum = count;
@@ -49,7 +49,7 @@ export const columnTaskDetail = (tasks: any[]) => {
                 },
                 {
                     title: "Action",
-                    width: 60,
+                    width: 30,
                     align: "center",
                     render: (item: any) => {
                         return <DetailButton studentDetail={item} />
@@ -61,7 +61,7 @@ export const columnTaskDetail = (tasks: any[]) => {
                 ...fullColumn,
                 {
                     title: tasks[index].taskName,
-                    width: 60,
+                    width: 80,
                     align: "center",
                     render: (item: any) => {
                         if (!item?.tasks[index]?.isActive) {

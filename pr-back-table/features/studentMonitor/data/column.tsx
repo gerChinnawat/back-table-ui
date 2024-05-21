@@ -11,16 +11,9 @@ interface DataType {
 export const column: TableColumnsType<DataType> = [
     {
         title: 'No',
-        dataIndex: 'student_number',
         width: 30,
         align: "center",
-        render: (text: string, record: any, index: any) => index + 1
-    },
-    {
-        title: 'Student No',
-        width: 70,
-        align: "center",
-        render: (item: any) => `${item?.student_detail?.student_number}`
+        render: (item: any) => `${item?.student_detail?.student_number}`,
     },
     {
         key: 'student_id',
