@@ -15,7 +15,7 @@ import { useStore } from "@/libs/zustand/store";
 const { Header, Sider, Content } = Layout;
 
 const LayoutPage = ({ children }: { children: React.ReactNode }) => {
-    const [collapsed, setCollapsed] = useState(false);
+    const [collapsed, setCollapsed] = useState(true);
     const router = useRouter();
     const key = useStore((state: any) => state.key)
     const getKey = useStore((state:any) => state.getKey)

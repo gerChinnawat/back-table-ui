@@ -1,9 +1,12 @@
 "use client";
 import { Modal, Form, Row, Col, Input, Button, Upload, Checkbox, Image } from "antd";
 import moment from "moment";
-import { UploadOutlined } from '@ant-design/icons';
+import { UploadOutlined, CameraOutlined } from '@ant-design/icons';
 import { useStore } from "@/libs/zustand/store";
 import appConfig from "@/config/app.config";
+import React, { useRef, useEffect, useState } from 'react';
+import { isMobile } from 'react-device-detect';
+
 
 const { TextArea } = Input;
 
@@ -11,6 +14,58 @@ const EditTaskTakingDetailModal = ({ isModalOpen, handleCancel, onFinish, taskNa
     const [ form ] = Form.useForm();
     const editeTaskTaking = useStore((state:any) => state.editeTaskTaking);
     const getEditeTaskTaking = useStore((state:any) => state.getEditeTaskTaking);
+    const [image, setImage] = useState('');
+    const [cameraData, setCameraData] = useState({
+        width: 0,
+        height: 0,
+    })
+
+    const videoRef: any = useRef(null);
+    const canvasRef: any = useRef(null);
+    const [state, setState] = useState({
+        isCameraOn: false,
+        isCapture: false,
+    });
+    
+    const OpenCamera = async (event: any) => {
+        let stream = await navigator.mediaDevices.getUserMedia({ video: isMobile ? { facingMode: { exact: 'environment' } } : true, audio: false });
+        const {width, height} = stream.getVideoTracks()[0].getSettings();
+        setCameraData({
+            width: width || 0,
+            height: height || 0,
+        })
+        videoRef.current.srcObject = stream;
+        setState({
+            ...state,
+            isCameraOn: true
+        })
+    };
+
+    const CloseCamera = async () => {
+        const tracks = await videoRef.current.srcObject.getTracks();
+        tracks[0].stop();
+
+        setState({
+            ...state,
+            isCameraOn: false
+        })
+    };
+
+    const captureImage = async (event: any) => {
+        const canvas = document.createElement('canvas');
+        const context:any = canvas.getContext('2d');
+        canvas.width = cameraData.width;
+        canvas.height = cameraData.height;
+        context.drawImage(videoRef.current, 0, 0, canvas.width, canvas.height);
+        const image_data_url = canvas.toDataURL('image/png');
+        const image_bob = canvas.toBlob((result) => result);
+        console.log(image_bob)
+        setImage(image_data_url);
+        setState({
+            ...state,
+            isCapture: true,
+        });
+    };
 
     return (
         <Modal
@@ -55,6 +110,25 @@ const EditTaskTakingDetailModal = ({ isModalOpen, handleCancel, onFinish, taskNa
                             >
                                 <Button icon={<UploadOutlined />}>Click to Upload</Button>
                             </Upload>
+                            </Form.Item>
+                    </Col>
+                </Row>
+                <Row gutter={[12, 0]}>
+                    <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
+                        <Form.Item
+                            label="Capture:"
+                            required
+                        >
+                            <Button icon={<CameraOutlined />} onClick={OpenCamera}>Camera</Button>
+                            <br />
+                            <video ref={videoRef} width={800} height={1300} autoPlay style={{ padding: "12px", paddingBottom: 0 }}/>
+                            <br />
+                            {state.isCameraOn && <Button style={{ marginBottom: '12px' }} onClick={captureImage}>Capture</Button>}
+                            <Image
+                                src={image}
+                                alt=""
+                                style={{ padding: "12px", paddingTop: 0 }}
+                            />
                             </Form.Item>
                     </Col>
                 </Row>
@@ -116,6 +190,7 @@ const EditTaskTakingDetailModal = ({ isModalOpen, handleCancel, onFinish, taskNa
                                     comment: "",
                                     isActive: false,
                                 })
+                                CloseCamera()
                             }}
                         >
                             Cancel

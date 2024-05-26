@@ -25,8 +25,8 @@ const SearchForm = ({ handleOnFinish, loading }: any) => {
             onFinish={onFinish}
             style={{ border: "solid 1px #E7E8EA", borderRadius: "6px", marginBottom: "24px" }}
         >
-            <Row gutter={[36, 0]} style={{ marginTop: "24px" }}>
-                <Col xs={24} sm={24} md={6} lg={6} xl={6} xxl={6} style={{ marginLeft: "12px" }}>
+            <Row gutter={[36, 0]} style={{ marginTop: "24px", }}>
+                <Col xs={24} sm={24} md={4} lg={4} xl={4} xxl={4} style={{ marginLeft: "12px" }}>
                     <Form.Item
                         label="Class :"
                         name="assignClassId"

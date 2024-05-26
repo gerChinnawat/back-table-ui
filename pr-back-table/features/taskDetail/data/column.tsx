@@ -18,7 +18,7 @@ export const columnTaskDetail = (tasks: any[]) => {
         },
         {
             title: 'Name',
-            width: 80,
+            width: 100,
             align: "start",
             render: (item: any) => `${item?.prename} ${item?.name} ${item?.surname}` ,
         },

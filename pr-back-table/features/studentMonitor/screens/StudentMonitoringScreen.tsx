@@ -3,7 +3,7 @@ import LayoutPage from "@/components/LayoutPage";
 import LayoutContent from "@/components/LayoutContent";
 import { VideoCameraOutlined } from '@ant-design/icons';
 import SearchForm from "../components/SearchForm";
-import { Table, Row } from "antd";
+import { Table, Row, Col } from "antd";
 import { column } from "../data/column";
 import { useState, useEffect } from "react";
 import getMonitoringAPI from "../services/getMonitoringAPI";
@@ -52,14 +52,16 @@ const StudentMonitoringScreen = () => {
                     loading={isLoading}
                 />
                 <Row>
-                    <Table
-                        columns={column}
-                        dataSource={monitoring || []}
-                        rowKey="id"
-                        scroll={{ y: "35vh" }}
-                        pagination={false}
-                        loading={isLoading}
-                    />
+                    <Col xs={24} sm={24} md={42} lg={24} xl={24} xxl={24}>
+                        <Table
+                            columns={column}
+                            dataSource={monitoring || []}
+                            rowKey="id"
+                            scroll={{ y: 350 }}
+                            pagination={false}
+                            loading={isLoading}
+                        />
+                    </Col>
                 </Row>
             </LayoutContent>
         </LayoutPage>

@@ -46,6 +46,6 @@ export const column: TableColumnsType<DataType> = [
         dataIndex: 'isActive',
         width: 100,
         align: "center",
-        render: (item) => item === "1" ? "true" : "false"
+        render: (item) => `${item}`
     },
 ];
