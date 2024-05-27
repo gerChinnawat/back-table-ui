@@ -19,6 +19,7 @@ export const createTaskTakingDetailSlice = (set: any) => ({
     editeTaskTaking: {
         taskTakingId: "",
         picture: null,
+        imageBob: null,
         comment: "",
         isActive: false,
     },

@@ -11,8 +11,9 @@ import {
 } from '@ant-design/icons';
 import { Button, Layout, Menu, theme, Row } from 'antd';
 import { useStore } from "@/libs/zustand/store";
+import { isMobile } from 'react-device-detect';
 
-const { Header, Sider, Content } = Layout;
+const { Header, Sider, Content} = Layout;
 
 const LayoutPage = ({ children }: { children: React.ReactNode }) => {
     const [collapsed, setCollapsed] = useState(true);
@@ -30,21 +31,16 @@ const LayoutPage = ({ children }: { children: React.ReactNode }) => {
 
     return (
     <Layout style={{ height: "100vh" }}>
-        <Sider trigger={null} collapsible collapsed={collapsed}>
+        {!isMobile && <Sider trigger={null} collapsible collapsed={collapsed}>
             <div className="demo-logo-vertical" />
             <Menu
                 theme="dark"
                 mode="inline"
                 items={[
-                    // {
-                    //     key: '/dashboard',
-                    //     icon: <UserOutlined />,
-                    //     label: 'Dashboard',
-                    // },
                     {
                         key: '/student_monitoring',
                         icon: <VideoCameraOutlined />,
-                        label: 'Student Monitoring',
+                        label: 'Monitoring',
                     },
                     {
                         key: '/task_detail',
@@ -60,29 +56,59 @@ const LayoutPage = ({ children }: { children: React.ReactNode }) => {
                 onClick={handleOnClick}
                 selectedKeys={[ key ]}
             />
-        </Sider>
+        </Sider>}
         <Layout>
             <Header style={{ padding: 0, background: colorBgContainer }}>
                 <Row justify={"space-between"}>
-                    <Button
-                        type="text"
-                        icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
-                        onClick={() => setCollapsed(!collapsed)}
-                        style={{
-                        fontSize: '16px',
-                        width: 64,
-                        height: 64,
-                        }}
-                    />
-                    <UserOutlined
-                        style={{ fontSize: "18px", marginRight: "24px" }}
-                        onClick={() => router.push("/")}
-                    />
+                        {!isMobile ? <Button
+                                type="text"
+                                icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+                                onClick={() => setCollapsed(!collapsed)}
+                                style={{
+                                fontSize: '16px',
+                                width: 64,
+                                height: 64,
+                                }}
+                            /> 
+                        : 
+                        <Menu
+                            theme="dark"
+                            mode="horizontal"
+                            items={[
+                                {
+                                    key: '/student_monitoring',
+                                    label: 'Monitoring',
+                                },
+                                {
+                                    key: '/task_detail',
+                                    label: 'Detail',
+                                },
+                                {
+                                    key: '/task',
+                                    label: 'Task',
+                                },
+                                {
+                                    key: '/',
+                                    label: 'Logout',
+                                },
+                            ]}
+                            onClick={handleOnClick}
+                            selectedKeys={[ key ]}
+                        />
+                        }
+                    {!isMobile &&
+                    <div>
+                        <UserOutlined
+                            style={{ fontSize: "18px", marginRight: "24px" }}
+                            onClick={() => router.push("/")}
+                        />
+                    </div>
+                    }
                 </Row>
             </Header>
             <Content
                 style={{
-                    margin: '24px 16px',
+                    margin: isMobile ?  "" : '24px 16px',
                     padding: 24,
                     minHeight: 280,
                     background: colorBgContainer,

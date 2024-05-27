@@ -7,25 +7,25 @@ export const  taskTakingColumn = () => {
     [
         {
             title: 'No',
-            width: 50,
+            width: 70,
             align: "center",
             render: (text: any, record: any, index: any) => index + 1,
         },
         {
             title: 'Task Name',
-            width: 100,
+            width: 120,
             align: "center",
             render: (item: any) => item?.task?.taskName
         },
         {
             title: 'Dead Line',
-            width: 70,
+            width: 100,
             align: "center",
             render: (item: any) => moment(item?.task?.deadLine).format("DD/MM/YYYY"),
         },
         {
             title: 'Picture',
-            width: 200,
+            width: 250,
             dataIndex: 'picture',
             align: "center",
             render: (item: any) => item === null ? "-" : <Image alt="" src={item} width={200} height={100}/>,
@@ -39,13 +39,13 @@ export const  taskTakingColumn = () => {
         },
         {
             title: 'Status',
-            width: 60,
+            width: 80,
             align: "center",
             render: (item: any) => item?.isActive ? "-" : "ส่งแล้ว"
         },
         {
             title: 'Action',
-            width: 70,
+            width: 100,
             align: "center",
             render: (item: any) => <ColumnButton taskTakingDetail={item} />
         }

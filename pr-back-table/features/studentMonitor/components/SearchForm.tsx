@@ -26,7 +26,7 @@ const SearchForm = ({ handleOnFinish, loading }: any) => {
             style={{ border: "solid 1px #E7E8EA", borderRadius: "6px", marginBottom: "24px" }}
         >
             <Row gutter={[36, 0]} style={{ marginTop: "24px", }}>
-                <Col xs={24} sm={24} md={4} lg={4} xl={4} xxl={4} style={{ marginLeft: "12px" }}>
+                <Col xs={12} sm={12} md={4} lg={4} xl={4} xxl={4} style={{ marginLeft: "12px" }}>
                     <Form.Item
                         label="Class :"
                         name="assignClassId"
@@ -46,7 +46,7 @@ const SearchForm = ({ handleOnFinish, loading }: any) => {
                         </Select>
                     </Form.Item>
                 </Col>
-                <Col>
+                <Col xs={24} sm={24} md={4} lg={4} xl={4} xxl={4} style={{ margin: "12px", marginTop: 0 }}>
                     <Button
                         htmlType="submit"
                         type="primary"

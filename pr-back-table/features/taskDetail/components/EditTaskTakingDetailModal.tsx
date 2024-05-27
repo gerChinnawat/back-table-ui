@@ -6,10 +6,11 @@ import { useStore } from "@/libs/zustand/store";
 import React, { useRef, useEffect, useState } from 'react';
 import { isMobile } from 'react-device-detect';
 import { uploadImageAPI } from "../services/uploadImageAPI";
+import { v4 as uuidv4 } from 'uuid';
 
 const { TextArea } = Input;
 
-const EditTaskTakingDetailModal = ({ isModalOpen, handleCancel, onFinish, taskName, deadLine }: any) => {
+const EditTaskTakingDetailModal = ({ isModalOpen, handleCancel, onFinish, taskName, deadLine, handleFileName }: any) => {
     const [ form ] = Form.useForm();
     const editeTaskTaking = useStore((state:any) => state.editeTaskTaking);
     const getEditeTaskTaking = useStore((state:any) => state.getEditeTaskTaking);
@@ -19,6 +20,7 @@ const EditTaskTakingDetailModal = ({ isModalOpen, handleCancel, onFinish, taskNa
         width: 0,
         height: 0,
     });
+    const [isLoading, setIsLoading] = useState(false);
 
     const videoRef: any = useRef(null);
     const canvasRef: any = useRef(null);
@@ -27,7 +29,7 @@ const EditTaskTakingDetailModal = ({ isModalOpen, handleCancel, onFinish, taskNa
         isCapture: false,
     });
     
-    const OpenCamera = async (event: any) => {
+    const OpenCamera = async () => {
         let stream = await navigator.mediaDevices.getUserMedia({ video: isMobile ? { facingMode: { exact: 'environment' } } : true, audio: false });
         const {width, height} = stream.getVideoTracks()[0].getSettings();
         setCameraData({
@@ -53,7 +55,7 @@ const EditTaskTakingDetailModal = ({ isModalOpen, handleCancel, onFinish, taskNa
         })
     };
 
-    const captureImage = async (event: any) => {
+    const captureImage = async () => {
         const canvas = document.createElement('canvas');
         const context:any = canvas.getContext('2d');
         canvas.width = cameraData.width;
@@ -62,9 +64,11 @@ const EditTaskTakingDetailModal = ({ isModalOpen, handleCancel, onFinish, taskNa
         const image_data_url = canvas.toDataURL('image/png');
         setPreImg(image_data_url);
         canvas.toBlob((result) => {
-            setImage(result)
+            getEditeTaskTaking({
+                ...editeTaskTaking,
+                imageBob: result,
+            });
         });
-        
         setState({
             ...state,
             isCapture: true,
@@ -72,21 +76,28 @@ const EditTaskTakingDetailModal = ({ isModalOpen, handleCancel, onFinish, taskNa
     };
 
     const handleOnUpload = async () => {
+        const fileName = `upload_image_${uuidv4()}`;
+        handleFileName(fileName)
         try {
+            setIsLoading(true);
             const formData = new FormData();
-            formData.append('file', image, 'upload_image');
-            const res = await uploadImageAPI(formData)
-            if (!res?.success) {
-                getEditeTaskTaking({
-                    ...editeTaskTaking,
-                    picture: null,
-                })
-            } else {
-                getEditeTaskTaking({
-                    ...editeTaskTaking,
-                    picture: res?.response?.data[0],
-                })
-            }
+            formData.append('file', editeTaskTaking.imageBob, fileName);
+            uploadImageAPI(formData)
+            .then((res) => {
+                if (!res?.success) {
+                    getEditeTaskTaking({
+                        ...editeTaskTaking,
+                        picture: null,
+                    })
+                } else {
+                    const formGetEditeTaskTaking = {
+                        ...editeTaskTaking,
+                        picture: fileName,
+                    }
+                    getEditeTaskTaking(formGetEditeTaskTaking);
+                }
+                setIsLoading(false);
+            })
         } catch (err) {
             console.log(err)
         }
@@ -133,7 +144,10 @@ const EditTaskTakingDetailModal = ({ isModalOpen, handleCancel, onFinish, taskNa
                                                 ctx.drawImage(img, 0, 0);
                                                 canvas.toBlob((result) => {
                                                     resolve(result as any)
-                                                    setImage(result);
+                                                    getEditeTaskTaking({
+                                                        ...editeTaskTaking,
+                                                        imageBob: result,
+                                                    });
                                                 });
                                             };
                                         };
@@ -156,7 +170,15 @@ const EditTaskTakingDetailModal = ({ isModalOpen, handleCancel, onFinish, taskNa
                             <br />
                             <video ref={videoRef} width={800} height={1300} autoPlay style={{ padding: "12px", paddingBottom: 0 }}/>
                             <br />
-                            {state.isCameraOn && <Button style={{ marginBottom: '12px' }} onClick={captureImage}>Capture</Button>}
+                            {state.isCameraOn && <Button
+                                    style={{ marginBottom: '12px' }}
+                                    onClick={() => {
+                                        captureImage()
+                                    }}
+                                    >
+                                        Capture
+                                    </Button>
+                            }
                             <Image
                                 src={preImg}
                                 alt=""
@@ -204,9 +226,10 @@ const EditTaskTakingDetailModal = ({ isModalOpen, handleCancel, onFinish, taskNa
                             htmlType="submit"
                             type="primary"
                             onClick={() => {
-                                handleOnUpload()
                                 CloseCamera()
+                                handleOnUpload()
                             }}
+                            loading={isLoading}
                         >
                             Save
                         </Button>
@@ -229,6 +252,7 @@ const EditTaskTakingDetailModal = ({ isModalOpen, handleCancel, onFinish, taskNa
                                 })
                                 CloseCamera()
                             }}
+                            loading={isLoading}
                         >
                             Cancel
                         </Button>

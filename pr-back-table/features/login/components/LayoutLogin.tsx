@@ -1,5 +1,5 @@
 import React from "react";
-import { Layout, Flex } from "antd";
+import { Layout, Flex, Row, Col } from "antd";
 
 const { Header, Footer, Content } = Layout;
 
@@ -33,7 +33,11 @@ const LoginLayout = ({ children }: Readonly<{ children: React.ReactNode; }>) => 
         <Flex gap="middle" wrap="wrap">
             <Layout style={layoutStyle}>
                 <Header style={headerStyle} />
-                <Content style={contentStyle}>{children}</Content>
+                <Row>
+                    <Col xs={24} sm={24} md={24}>
+                        <Content style={contentStyle}>{children}</Content>
+                    </Col>
+                </Row>
                 <Footer style={footerStyle} />
             </Layout>
         </Flex>

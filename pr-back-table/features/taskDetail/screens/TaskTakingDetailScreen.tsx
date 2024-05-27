@@ -18,6 +18,7 @@ const TaskTakingDetailScreen = () => {
     const studentDetail = useStore((state: any) => state.studentDetail);
     const taskTakingDetail = useStore((state: any) => state.taskTakingDetail);
     const editeTaskTaking = useStore((state:any) => state.editeTaskTaking);
+    const getEditeTaskTaking = useStore((state:any) => state.getEditeTaskTaking);
     const [messageApi, contextHolder] = message.useMessage();
 
     useEffect(() => {
@@ -33,6 +34,13 @@ const TaskTakingDetailScreen = () => {
     const handleCancel = () => {
         getModalOpen(false);
     };
+
+    const handleFileName = (value: any) => {
+        getEditeTaskTaking({
+            ...editeTaskTaking,
+            picture: value,
+        })
+    } 
 
     const onFinish = async () => {
         const res = await updateTaskTakingAPI(editeTaskTaking);
@@ -90,6 +98,7 @@ const TaskTakingDetailScreen = () => {
             isModalOpen={modalOpen}
             handleCancel={handleCancel}
             onFinish={onFinish}
+            handleFileName={handleFileName}
         />
         </>
         

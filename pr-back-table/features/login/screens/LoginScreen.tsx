@@ -47,6 +47,7 @@ const LoginScreen = () => {
             <Space
                 direction="vertical"
                 size={16}
+                style={{ margin: 0, padding: 0 }}
             >
                 <Card className="card-login">
                     <Space

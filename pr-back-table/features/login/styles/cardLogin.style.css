@@ -6,8 +6,7 @@
 
 @media only screen and (max-width: 1024px) {
     .card-login {
-        width: 60vh;
-        margin-inline: 5vh;
+        width: 40vh;
         min-height: 60vh;
     }
 }
