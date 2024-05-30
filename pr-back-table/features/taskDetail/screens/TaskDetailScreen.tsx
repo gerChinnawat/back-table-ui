@@ -8,6 +8,8 @@ import { columnTaskDetail } from "../data/column";
 import { useState, useEffect } from "react";
 import getTaskDetailAPI from "../services/getTaskDetailAPI";
 import getTaskAPI from "@/features/task/services/getTaskAPI";
+import { useStore } from "@/libs/zustand/store";
+
 
 const TaskDetailScreen = () => {
     const [taskDetail, setTaskDetail] = useState([])
@@ -15,11 +17,11 @@ const TaskDetailScreen = () => {
     const [isLoadingTaskDetail, setIsLoadingTaskDetail] = useState(true);
     const [isLoadingTask, setIsLoadingTask] = useState(true);
     const { widthCount, fullColumn } = columnTaskDetail(task)
+    const searchParamsTakingTask = useStore((state:any) => state.searchParamsTakingTask);
+    const updateSearchParamsTakingTask = useStore((state:any) => state.updateSearchParamsTakingTask);
+
     useEffect(() => {
-        getTaskDetailAPI({
-            classNo: 10,
-            roomNo: 1
-        })
+        getTaskDetailAPI(searchParamsTakingTask)
         .then((res) => {
             if (res?.success) {
                 setTaskDetail(res?.response?.data);
@@ -28,10 +30,7 @@ const TaskDetailScreen = () => {
         })
         .catch((err) => console.log(err))
 
-        getTaskAPI({
-            classNo: 10,
-            roomNo: 1
-        })
+        getTaskAPI(searchParamsTakingTask)
         .then((res) => {
             setTask(res?.response?.data);
             setIsLoadingTask(false);
@@ -40,6 +39,7 @@ const TaskDetailScreen = () => {
     }, [])
     
     const handleOnFinish = async (values: any) => {
+        updateSearchParamsTakingTask(values);
         const resTaskDetail = await getTaskDetailAPI(values);
         const resTask = await getTaskAPI(values);
         setIsLoadingTaskDetail(true)
@@ -71,7 +71,7 @@ const TaskDetailScreen = () => {
                         columns={fullColumn}
                         dataSource={taskDetail || []}
                         rowKey="id"
-                        scroll={{ y: "45vh" , x: (widthCount + 750)}}
+                        scroll={{ y: "45vh" , x: (widthCount + 1000)}}
                         pagination={false}
                         loading={isLoadingTaskDetail || isLoadingTask}
                     />

@@ -24,7 +24,7 @@ export const columnTaskDetail = (tasks: any[]) => {
         },
         {
             title: 'Class',
-            width: 30,
+            width: 50,
             align: "center",
             render: (item: any) => `${item?.class_now - 9}/${item?.room}`
         },
@@ -49,7 +49,7 @@ export const columnTaskDetail = (tasks: any[]) => {
                 },
                 {
                     title: "Action",
-                    width: 30,
+                    width: 50,
                     align: "center",
                     render: (item: any) => {
                         return <DetailButton studentDetail={item} />

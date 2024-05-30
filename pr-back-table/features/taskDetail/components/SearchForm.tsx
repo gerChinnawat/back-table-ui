@@ -1,19 +1,21 @@
 "use client";
 import { Form, Select, Row, Col, Button } from "antd";
 import { classList, roomList } from "@/data/dataList";
+import { useStore } from "@/libs/zustand/store";
+import { useState } from "react";
 
 const SearchForm = ({ handleOnFinish, loading }: any) => {
+    const searchParamsTakingTask = useStore((state:any) => state.searchParamsTakingTask);
+
     const onFinish = (value: any) => {
         handleOnFinish(value)
     };
+    
     return (
         <Form
             layout="horizontal"
             onFinish={onFinish}
-            initialValues={{
-                classNo: 10,
-                roomNo: 1
-            }}
+            initialValues={searchParamsTakingTask}
             style={{ border: "solid 1px #E7E8EA", borderRadius: "6px", marginBottom: "24px" }}
         >
             <Row gutter={[36, 0]} style={{ marginTop: "24px" }}>
@@ -23,7 +25,9 @@ const SearchForm = ({ handleOnFinish, loading }: any) => {
                         name="classNo"
                         required
                     >
-                        <Select defaultValue={10}>
+                        <Select
+                            defaultValue={searchParamsTakingTask.classNo}
+                        >
                             {classList.map((item) => {
                                 return (
                                     <Select.Option key={item.id} value={item.value} >{item.classNo}</Select.Option>
@@ -38,7 +42,7 @@ const SearchForm = ({ handleOnFinish, loading }: any) => {
                         name="roomNo"
                         required
                     >
-                        <Select defaultValue={1}>
+                        <Select defaultValue={searchParamsTakingTask.roomNo}>
                             {roomList.map((item) => {
                                 return (
                                     <Select.Option key={item.id} value={item.value} >{item.roomNo}</Select.Option>

@@ -24,4 +24,9 @@ export const createTaskTakingDetailSlice = (set: any) => ({
         isActive: false,
     },
     getEditeTaskTaking: (newValue: any) => set((state: any) => ({ ...state, editeTaskTaking: newValue })),
+    searchParamsTakingTask: {
+        classNo: 10,
+        roomNo: 1,
+    },
+    updateSearchParamsTakingTask: (newValue: any) => set((state: any) => ({ ...state, searchParamsTakingTask: newValue })),
 });
