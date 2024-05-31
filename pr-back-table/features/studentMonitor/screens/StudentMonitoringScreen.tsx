@@ -8,6 +8,7 @@ import { column } from "../data/column";
 import { useState, useEffect } from "react";
 import getMonitoringAPI from "../services/getMonitoringAPI";
 import getAssignClassAPI from "../services/getAssignClassAPI";
+import { isMobile } from "react-device-detect";
 
 const StudentMonitoringScreen = () => {
     const [monitoring, setMonitoring] = useState([]);
@@ -57,7 +58,7 @@ const StudentMonitoringScreen = () => {
                             columns={column}
                             dataSource={monitoring || []}
                             rowKey="id"
-                            scroll={{ y: 350 }}
+                            scroll={{ y: isMobile ? "40vh" : "45vh" }}
                             pagination={false}
                             loading={isLoading}
                         />

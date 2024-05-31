@@ -59,8 +59,9 @@ const LayoutPage = ({ children }: { children: React.ReactNode }) => {
         </Sider>}
         <Layout>
             <Header style={{ padding: 0, background: colorBgContainer }}>
-                <Row justify={"space-between"}>
-                        {!isMobile ? <Button
+                        {!isMobile ? 
+                        <Row justify={"space-between"}>
+                            <Button
                                 type="text"
                                 icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
                                 onClick={() => setCollapsed(!collapsed)}
@@ -69,7 +70,14 @@ const LayoutPage = ({ children }: { children: React.ReactNode }) => {
                                 width: 64,
                                 height: 64,
                                 }}
-                            /> 
+                            />
+                            <div>
+                                <UserOutlined
+                                    style={{ fontSize: "18px", marginRight: "24px" }}
+                                    onClick={() => router.push("/")}
+                                />
+                            </div>
+                        </Row> 
                         : 
                         <Menu
                             theme="dark"
@@ -81,7 +89,7 @@ const LayoutPage = ({ children }: { children: React.ReactNode }) => {
                                 },
                                 {
                                     key: '/task_detail',
-                                    label: 'Detail',
+                                    label: 'Task Detail',
                                 },
                                 {
                                     key: '/task',
@@ -96,20 +104,11 @@ const LayoutPage = ({ children }: { children: React.ReactNode }) => {
                             selectedKeys={[ key ]}
                         />
                         }
-                    {!isMobile &&
-                    <div>
-                        <UserOutlined
-                            style={{ fontSize: "18px", marginRight: "24px" }}
-                            onClick={() => router.push("/")}
-                        />
-                    </div>
-                    }
-                </Row>
             </Header>
             <Content
                 style={{
                     margin: isMobile ?  "" : '24px 16px',
-                    padding: 24,
+                    padding: isMobile ?  12 : 24,
                     minHeight: 280,
                     background: colorBgContainer,
                     borderRadius: borderRadiusLG,

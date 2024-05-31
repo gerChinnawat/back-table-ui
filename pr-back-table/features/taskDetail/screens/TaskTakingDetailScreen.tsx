@@ -10,6 +10,7 @@ import getTaskTakinfAPI from "../services/getTaskTakingAPI";
 import EditTaskTakingDetailModal from "../components/EditTaskTakingDetailModal";
 import { useStore } from "@/libs/zustand/store";
 import { updateTaskTakingAPI } from "../services/updateTaskTakingAPI";
+import { isMobile } from "react-device-detect";
 
 const TaskTakingDetailScreen = () => {
     const [taskTaking, setTaskTaking ] = useState([]);
@@ -86,7 +87,7 @@ const TaskTakingDetailScreen = () => {
                 <Table
                     columns={taskTakingColumn()}
                     dataSource={taskTaking || []}
-                    scroll={{ y: "40vh" }}
+                    scroll={{ y: isMobile ? "20hv" : "60hv" }}
                     pagination={false}
                     rowKey="taskTakingId"
                 />

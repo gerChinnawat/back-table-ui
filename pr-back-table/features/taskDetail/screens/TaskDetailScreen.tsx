@@ -9,6 +9,7 @@ import { useState, useEffect } from "react";
 import getTaskDetailAPI from "../services/getTaskDetailAPI";
 import getTaskAPI from "@/features/task/services/getTaskAPI";
 import { useStore } from "@/libs/zustand/store";
+import { isMobile } from "react-device-detect";
 
 
 const TaskDetailScreen = () => {
@@ -71,7 +72,7 @@ const TaskDetailScreen = () => {
                         columns={fullColumn}
                         dataSource={taskDetail || []}
                         rowKey="id"
-                        scroll={{ y: "45vh" , x: (widthCount + 1000)}}
+                        scroll={{ y: isMobile ? "40vh" : "45vh" , x: (widthCount + 1000)}}
                         pagination={false}
                         loading={isLoadingTaskDetail || isLoadingTask}
                     />
