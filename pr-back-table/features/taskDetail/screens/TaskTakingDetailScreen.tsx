@@ -87,7 +87,7 @@ const TaskTakingDetailScreen = () => {
                 <Table
                     columns={taskTakingColumn()}
                     dataSource={taskTaking || []}
-                    scroll={{ y: isMobile ? "20hv" : "60hv" }}
+                    scroll={{ y: isMobile ? "20vh" : "40vh" }}
                     pagination={false}
                     rowKey="taskTakingId"
                 />
