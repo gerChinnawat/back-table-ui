@@ -3,17 +3,19 @@ import LayoutPage from "@/components/LayoutPage";
 import LayoutContent from "@/components/LayoutContent";
 import { VideoCameraOutlined } from '@ant-design/icons';
 import SearchForm from "../components/SearchForm";
-import { Table, Row, Col } from "antd";
+import { Table, Row, Col, message } from "antd";
 import { column } from "../data/column";
 import { useState, useEffect } from "react";
 import getMonitoringAPI from "../services/getMonitoringAPI";
 import getAssignClassAPI from "../services/getAssignClassAPI";
+import updateMonitoringAPI from "../services/updateMonitoringAPI";
 import { isMobile } from "react-device-detect";
 
 const StudentMonitoringScreen = () => {
     const [monitoring, setMonitoring] = useState([]);
-    const [assignClass, setAssignClass] = useState([]);
+    const [assignClass, setAssignClass] = useState<any[]>([]);
     const [isLoading, setIdLoading] = useState(true);
+    const [messageApi, contextHolder] = message.useMessage();
 
     useEffect(() => {
         getAssignClassAPI()
@@ -42,7 +44,41 @@ const StudentMonitoringScreen = () => {
             setMonitoring([]);
         }
     };
+
+    const handleOnUpdate = async () => {
+        setIdLoading(true);
+        try {
+            const res = await updateMonitoringAPI()
+            setIdLoading(true);
+            if (!res?.success) {
+                onMessageSend({ isSuccess: false, message: res?.response?.message });
+            } else {
+                onMessageSend({ isSuccess: true, message: res?.response?.message });
+                setIdLoading(false);
+                getMonitoringAPI({ assignClassId: assignClass[0]?.assignClassId })
+                .then((res) => {
+                    if (res?.success) {
+                        setMonitoring(res?.response?.data);
+                        setIdLoading(false);
+                    }
+                });
+            }
+        } catch (err) {
+            onMessageSend({ isSuccess: false, message: "something went wrong" });
+            setIdLoading(false);
+        }
+    };
+
+    const onMessageSend = ({ isSuccess, message } : { isSuccess: boolean, message: string }) => {
+        messageApi.open({
+            type: isSuccess ? "success" : "error",
+            content: message,
+        });
+    };
+
     return (
+        <>
+        {contextHolder}
         <LayoutPage>
             <LayoutContent
                 title="Student Monitoring"
@@ -50,6 +86,7 @@ const StudentMonitoringScreen = () => {
             >
                 <SearchForm
                     handleOnFinish={handleOnFinish}
+                    handleOnUpdate={handleOnUpdate}
                     loading={isLoading}
                 />
                 <Row>
@@ -66,6 +103,7 @@ const StudentMonitoringScreen = () => {
                 </Row>
             </LayoutContent>
         </LayoutPage>
+        </>
     );
 };
 
