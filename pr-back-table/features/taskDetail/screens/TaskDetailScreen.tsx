@@ -72,7 +72,7 @@ const TaskDetailScreen = () => {
                         columns={fullColumn}
                         dataSource={taskDetail || []}
                         rowKey="id"
-                        scroll={{ y: isMobile ? "40vh" : "45vh" , x: (widthCount + 1000)}}
+                        scroll={{ y: "40vh" , x: (widthCount + 1000)}}
                         pagination={false}
                         loading={isLoadingTaskDetail || isLoadingTask}
                     />

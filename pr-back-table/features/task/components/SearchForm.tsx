@@ -45,7 +45,7 @@ const SearchForm = ({ handleOnFinish, loading, handleOnAddTask, initialValues }:
                         </Select>
                     </Form.Item>
                 </Col>
-                    <Col xs={10} sm={24} md={8} lg={6} xl={2} xxl={4} style={{ margin: "12px", marginTop: 0 }}>
+                    <Col xs={10} sm={24} md={8} lg={6} xl={2} xxl={4} style={{ display: "flex", alignItems: "end", marginLeft: "12px", marginBottom: "24px" }}>
                         <Button
                             htmlType="submit"
                             type="primary"
@@ -54,7 +54,7 @@ const SearchForm = ({ handleOnFinish, loading, handleOnAddTask, initialValues }:
                             Search
                         </Button>
                     </Col>
-                    <Col xs={10} sm={24} md={8} lg={6} xl={4} xxl={4} style={{ margin: "12px", marginTop: 0 }}>
+                    <Col xs={10} sm={24} md={8} lg={6} xl={4} xxl={4} style={{ display: "flex", alignItems: "end", marginLeft: "12px", marginBottom: "24px" }}>
                         <Button
                             style={{ backgroundColor: "#001529", color: "white", borderColor: "#001529" }}
                             onClick={handleOnAddTask}
