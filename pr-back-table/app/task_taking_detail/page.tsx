@@ -2,7 +2,7 @@ import TaskTakingDetailScreen from "@/features/taskDetail/screens/TaskTakingDeta
 
 const TaskTakingDetailPage = () => {
     return (
-        <TaskTakingDetailScreen />
+        <></>
     )
 };
 

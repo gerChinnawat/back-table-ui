@@ -3,7 +3,7 @@ import StudentMonitoringScreen from "@/features/studentMonitor/screens/StudentMo
 
 const StudentMonitoringPage = () => {
     return (
-        <StudentMonitoringScreen />
+        <></>
     );
 };
 

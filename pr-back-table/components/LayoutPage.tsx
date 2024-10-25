@@ -7,7 +7,7 @@ import {
     UserOutlined,
     VideoCameraOutlined,
     ScheduleOutlined,
-    ProfileOutlined,
+    BankOutlined,
 } from '@ant-design/icons';
 import { Button, Layout, Menu, theme, Row } from 'antd';
 import { useStore } from "@/libs/zustand/store";
@@ -16,7 +16,7 @@ import { isMobile } from 'react-device-detect';
 const { Header, Sider, Content} = Layout;
 
 const LayoutPage = ({ children }: { children: React.ReactNode }) => {
-    const [collapsed, setCollapsed] = useState(true);
+    const [collapsed, setCollapsed] = useState(false);
     const router = useRouter();
     const key = useStore((state: any) => state.key)
     const getKey = useStore((state:any) => state.getKey)
@@ -38,20 +38,20 @@ const LayoutPage = ({ children }: { children: React.ReactNode }) => {
                 mode="inline"
                 items={[
                     {
-                        key: '/student_monitoring',
-                        icon: <VideoCameraOutlined />,
-                        label: 'Monitoring',
+                        key: '/transaction',
+                        icon: <BankOutlined />,
+                        label: 'Transaction',
                     },
                     {
-                        key: '/task_detail',
+                        key: '/',
                         icon: <ScheduleOutlined />,
-                        label: 'Task Detail',
+                        label: 'Test Taking',
                     },
-                    {
-                        key: '/task',
-                        icon: <ProfileOutlined />,
-                        label: 'Task',
-                    },
+                    // {
+                    //     key: '/task',
+                    //     icon: <ProfileOutlined />,
+                    //     label: 'Task',
+                    // },
                 ]}
                 onClick={handleOnClick}
                 selectedKeys={[ key ]}
@@ -85,20 +85,20 @@ const LayoutPage = ({ children }: { children: React.ReactNode }) => {
                             items={[
                                 {
                                     key: '/student_monitoring',
-                                    label: 'Monitoring',
+                                    label: 'Transaction',
                                 },
                                 {
                                     key: '/task_detail',
-                                    label: 'Task Detail',
+                                    label: 'Test Taking',
                                 },
-                                {
-                                    key: '/task',
-                                    label: 'Task',
-                                },
-                                {
-                                    key: '/',
-                                    label: 'Logout',
-                                },
+                                // {
+                                //     key: '/task',
+                                //     label: 'Task',
+                                // },
+                                // {
+                                //     key: '/',
+                                //     label: 'Logout',
+                                // },
                             ]}
                             onClick={handleOnClick}
                             selectedKeys={[ key ]}
