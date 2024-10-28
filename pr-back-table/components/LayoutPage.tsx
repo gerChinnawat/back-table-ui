@@ -42,11 +42,11 @@ const LayoutPage = ({ children }: { children: React.ReactNode }) => {
                         icon: <BankOutlined />,
                         label: 'Transaction',
                     },
-                    {
-                        key: '/',
-                        icon: <ScheduleOutlined />,
-                        label: 'Test Taking',
-                    },
+                    // {
+                    //     key: '/',
+                    //     icon: <ScheduleOutlined />,
+                    //     label: 'Test Taking',
+                    // },
                     // {
                     //     key: '/task',
                     //     icon: <ProfileOutlined />,
@@ -87,10 +87,10 @@ const LayoutPage = ({ children }: { children: React.ReactNode }) => {
                                     key: '/student_monitoring',
                                     label: 'Transaction',
                                 },
-                                {
-                                    key: '/task_detail',
-                                    label: 'Test Taking',
-                                },
+                                // {
+                                //     key: '/task_detail',
+                                //     label: 'Test Taking',
+                                // },
                                 // {
                                 //     key: '/task',
                                 //     label: 'Task',

@@ -10,10 +10,21 @@ import updateTransaction from "../services/updateTransaction";
 import EditTransactionModal from "../components/EditModal";
 import { useStore } from "@/libs/zustand/store";
 
+interface TransactionBody {
+    year: string;
+    page: number;
+    pageSize: number;
+}
+
 const TransactionScreen = () => {
     const [messageApi, contextHolder] = message.useMessage();
     const [transaction, setTransaction] = useState<any[]>([]);
-    const [pageSize, setPageSize] = useState(5);
+    const [body, setBody] = useState({
+        year: '2024',
+        page: 1,
+        pageSize: 15,
+        pageTotal: 1
+    });
     const [selectedRecord, setSelectedRecord] = useState<any>()
     const [visible, setVisible] = useState(false);
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -21,23 +32,25 @@ const TransactionScreen = () => {
     const updatedTransaction = useStore((state:any) => state.transaction);
 
     useEffect(() => {
-        getTransactions({
-            year: '2024'
-        })
-        .then((res) => {
-            if(res?.success) {
-                setTransaction(res?.response?.data);
-            };
-        })
+        handleGetTransaction(body);
     }, [])
 
     const handleOnOpen = () => {
 
-    }
+    };
 
-    const handleOnChangePage = (current_page: number) => {
-        console.log(current_page)
-    }
+    const handleGetTransaction = async ( transactionBody : TransactionBody) => {
+        const res = await getTransactions(transactionBody);
+        if (res?.success) {
+            setTransaction(res?.response?.data?.transactionData);
+            setBody({
+                year: '2024',
+                page: res?.response?.data?.page,
+                pageSize: res?.response?.data?.pageSize,
+                pageTotal: res?.response?.data?.totalPages,
+            })
+        }
+    };
 
     const handleOnImageRef = () => {
         setVisible(true);
@@ -61,11 +74,19 @@ const TransactionScreen = () => {
         onMessageSend({ isSuccess: res.success, message: res.response.message })
         if (res.success) {
             getTransactions({
-                year: '2024'
+                year: '2024',
+                page: body.page,
+                pageSize: body.pageSize,
             })
             .then((res) => {
                 if(res?.success) {
-                    setTransaction(res?.response?.data);
+                    setTransaction(res?.response?.data?.transactionData);
+                    setBody({
+                        year: '2024',
+                        page: res?.response?.data?.page,
+                        pageSize: res?.response?.data?.pageSize,
+                        pageTotal: res?.response?.data?.totalPages,
+                    })
                     setIsModalOpen(false);
                 };
             })
@@ -98,13 +119,21 @@ const TransactionScreen = () => {
                             columns={column(handleOnImageRef, handlOnClickEdit)}
                             dataSource={ transaction || []}
                             rowKey="id"
-                            scroll={{ y: '55vh', x: 'max-content' }}
+                            scroll={{ y: '55vh', x: 'max-content' }}                      
                             pagination={{
-                                pageSize: pageSize, 
+                                current: body.page,
+                                total: body.pageTotal,
+                                pageSize: body.pageSize, 
                                 showSizeChanger: true, 
-                                pageSizeOptions: ['5', '10', '15'], 
-                                onShowSizeChange: (current, size) => setPageSize(size),
-                                onChange: (event) => handleOnChangePage(event)
+                                pageSizeOptions: ['10', '20', '50'],
+                                onChange: (page, pageSize ) => {
+                                    handleGetTransaction({
+                                        ...body,
+                                        page: page,
+                                        pageSize: pageSize,
+                                    })
+                                },
+                                locale: { items_per_page: '' },
                             }}
                             onRow={(record) => ({
                                 onClick: () => {

@@ -77,6 +77,18 @@ export const column = (handleOnImageRef: any, handlOnClickEdit: any): any =>  {
             render: (text: any, record: any, index: any) => `${moment(record.createdAt).format('DD/MM/YYYY HH:MM') + ' น.'}`,
         },
         {
+            title: 'Last Update By',
+            width: 150,
+            align: "center",
+            render: (text: any, record: any, index: any) => `${record.updatedBy || '-'}`
+        },
+        {
+            title: 'Remark',
+            width: 200,
+            align: "center",
+            render: (text: any, record: any, index: any) => `${record.remark || '-'}`
+        },
+        {
             title: 'Phone Number',
             width: 150,
             align: "center",
@@ -93,12 +105,6 @@ export const column = (handleOnImageRef: any, handlOnClickEdit: any): any =>  {
             width: 150,
             align: "center",
             render: (text: any, record: any, index: any) => `${record.city}`
-        },
-        {
-            title: 'Remark',
-            width: 150,
-            align: "center",
-            render: (text: any, record: any, index: any) => `${record.remark || '-'}`
         },
     ]);
 };
