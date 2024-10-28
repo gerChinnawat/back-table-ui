@@ -25,14 +25,14 @@ interface DataType {
     updatedAt?: string;
 }
 
-export const column = (handleOnImageRef: any, handlOnClickEdit: any): any =>  {
+export const column = (handleOnImageRef: any, handlOnClickEdit: any, page: any, pageSize: any): any =>  {
 
     return ([
         {
             title: 'No',
             width: 60,
             align: "center",
-            render: (text: any, record: any, index: any) => `${ index + 1}`,
+            render: (text: any, record: any, index: any) => `${ (index+1) + (page -1)*pageSize }`,
         },
         {
             title: 'Status',

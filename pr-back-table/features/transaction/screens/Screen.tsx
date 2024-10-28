@@ -116,10 +116,10 @@ const TransactionScreen = () => {
                 <Row>
                     <Col xs={24} sm={24} md={42} lg={24} xl={24} xxl={24}>
                         <Table
-                            columns={column(handleOnImageRef, handlOnClickEdit)}
+                            columns={column(handleOnImageRef, handlOnClickEdit, body.page, body.pageSize)}
                             dataSource={ transaction || []}
                             rowKey="id"
-                            scroll={{ y: '55vh', x: 'max-content' }}                      
+                            scroll={{ y: '50vh', x: 'max-content' }}                      
                             pagination={{
                                 current: body.page,
                                 total: body.pageTotal,
