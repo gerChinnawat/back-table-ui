@@ -1,7 +1,6 @@
 "use client";
 import React from 'react';
 import { Layout, Space } from 'antd';
-import { isMobile } from 'react-device-detect';
 
 const { Header, Content } = Layout;
 
@@ -23,7 +22,7 @@ const LayoutContent = ({ children, title, icon } : { children: React.ReactNode, 
                     background: "white",
                     border: "solid 1px  #E7E8EA",
                     borderRadius: "8px",
-                    padding: isMobile ? "12px" :"24px",
+                    padding: "24px",
                     fontSize: "16px"
                 }}
             >
