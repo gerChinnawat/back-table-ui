@@ -1,5 +1,5 @@
 import type { TableColumnsType } from 'antd';
-import moment from 'moment';
+import moment from 'moment-timezone';
 import { 
     EditOutlined,
     EyeOutlined,
@@ -50,11 +50,11 @@ export const column = (handleOnImageRef: any, handlOnClickEdit: any, page: any, 
         },
         {
             title: 'Action',
-            width: 80,
+            width: 120,
             align: "center",
             render: (text: any, record: any, index: any) => <div>
-                <EyeOutlined style={{ color: 'orange', paddingRight: '0.5rem' }} onClick={handleOnImageRef}/>
-                <EditOutlined style={{ color: 'green' }} onClick={handlOnClickEdit} />
+                <EyeOutlined style={{ color: 'orange', paddingRight: '1rem', fontSize: '1.15rem' }} onClick={handleOnImageRef}/>
+                <EditOutlined style={{ color: 'green', fontSize: '1.15rem' }} onClick={handlOnClickEdit} />
             </div>
         },
         {
@@ -65,7 +65,7 @@ export const column = (handleOnImageRef: any, handlOnClickEdit: any, page: any, 
             render: (text: any, record: any, index: any) => `${record.prefix} ${record.firstname} ${record.lastname}`,
         },
         {
-            title: 'Total Fee',
+            title: 'Total Amount',
             width: 100,
             align: "center",
             render: (text: any, record: any, index: any) => `${record.total_fee}`
@@ -74,7 +74,7 @@ export const column = (handleOnImageRef: any, handlOnClickEdit: any, page: any, 
             title: 'Sign Up At',
             width: 140,
             align: "center",
-            render: (text: any, record: any, index: any) => `${moment(record.createdAt).format('DD/MM/YYYY HH:MM') + ' น.'}`,
+            render: (text: any, record: any, index: any) => `${moment(moment(record.createdAt).tz('Asia/Bangkok')).format('DD/MM/YYYY hh:mm A')}`,
         },
         {
             title: 'Last Update By',

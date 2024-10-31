@@ -9,6 +9,7 @@ import getTransactions from "../services/getTransaction";
 import updateTransaction from "../services/updateTransaction";
 import EditTransactionModal from "../components/EditModal";
 import { useStore } from "@/libs/zustand/store";
+import SearchForm from "./../components/SearchForm"
 
 interface TransactionBody {
     year: string;
@@ -93,6 +94,10 @@ const TransactionScreen = () => {
         };
     };
 
+    const handleOnFinish = () => {
+
+    };
+
     const onMessageSend = ({ isSuccess, message } : { isSuccess: boolean, message: string }) => {
         messageApi.open({
             type: isSuccess ? "success" : "error",
@@ -110,8 +115,6 @@ const TransactionScreen = () => {
             >
                 {/* <SearchForm
                     handleOnFinish={handleOnFinish}
-                    handleOnUpdate={handleOnUpdate}
-                    loading={isLoading}
                 /> */}
                 <Row>
                     <Col xs={24} sm={24} md={42} lg={24} xl={24} xxl={24}>
