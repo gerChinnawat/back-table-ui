@@ -20,7 +20,7 @@ interface TransactionBody {
 const TransactionScreen = () => {
     const [messageApi, contextHolder] = message.useMessage();
     const [transaction, setTransaction] = useState<any[]>([]);
-    const [body, setBody] = useState({
+    const [body, setBody] = useState<any>({
         year: '2024',
         page: 1,
         pageSize: 15,
@@ -67,7 +67,7 @@ const TransactionScreen = () => {
 
     const onFinish = async () => {
         const res: any = await updateTransaction({
-            transactionId: updatedTransaction?.id,
+            transactionId: updatedTransaction?.transactionId,
             isVerify: updatedTransaction.isVerify || false,
             status: updatedTransaction.status || 'pending',
             remark: updatedTransaction.remark || '',

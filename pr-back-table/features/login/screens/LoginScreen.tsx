@@ -8,6 +8,13 @@ import "../styles/cardLogin.style.css"
 import { useRouter } from "next/navigation";
 import { useStore } from "@/libs/zustand/store";
 import userLogin from "../services/userLogin";
+import jwt, { JwtPayload }  from 'jsonwebtoken';
+
+interface DecodedToken {
+    data: any;
+    exp: number;
+    iat: number;
+};
 
 const LoginScreen = () => {
     const [sentState, setSentState] = useState({
@@ -20,9 +27,13 @@ const LoginScreen = () => {
 
     const handleOnLogin = async () => {
         const res = await userLogin(sentState)
-        if (!res.success) {
+        if (!res?.success) {
             onMessageSend({ isSuccess: false, message: res?.response?.message })
         } else {
+            const decoed_token = jwt.decode(res?.response?.data[0]);
+            const email = (decoed_token as JwtPayload).data?.email;
+            localStorage.setItem("user_email", email);
+
             onMessageSend({ isSuccess: true, message: res?.response?.message })
             localStorage.setItem("key", res?.response?.data[0])
             getKey('/transaction');

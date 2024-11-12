@@ -11,6 +11,7 @@ import {
 } from '@ant-design/icons';
 import { Button, Layout, Menu, theme, Row } from 'antd';
 import { useStore } from "@/libs/zustand/store";
+import DropdownList from './Dropdown';
 
 const { Header, Sider, Content} = Layout;
 
@@ -23,6 +24,7 @@ const LayoutPage = ({ children }: { children: React.ReactNode }) => {
         token: { colorBgContainer, borderRadiusLG },
     } = theme.useToken();
 
+    const email = localStorage?.getItem("user_email");
     const handleOnClick = ({ key } : { key: string }) => {
         router.push(key);
         getKey(key);
@@ -70,10 +72,10 @@ const LayoutPage = ({ children }: { children: React.ReactNode }) => {
                         }}
                     />
                     <div>
-                        <UserOutlined
-                            style={{ fontSize: "18px", marginRight: "24px" }}
-                            onClick={() => router.push("/")}
-                        />
+                        <a style={{ marginRight: '1rem', fontSize: '0.9rem' }}>{email}</a>
+                        <DropdownList>
+                            <UserOutlined style={{ fontSize: "18px", marginRight: "24px" }} />
+                        </DropdownList>
                     </div>
                 </Row>
             </Header>

@@ -8,6 +8,7 @@ import {
     CloseCircleOutlined
 } from '@ant-design/icons';
 import { Tag } from 'antd';
+import { convertToTestTaking } from '@/utils/convertToTestTaking';
 
 interface DataType {
     key: string;
@@ -36,7 +37,7 @@ export const column = (handleOnImageRef: any, handlOnClickEdit: any, page: any, 
         },
         {
             title: 'Status',
-            width: 80,
+            width: 50,
             align: "center",
             render: (text: any, record: any, index: any) => {
                 if (record.status === 'success') {
@@ -50,7 +51,7 @@ export const column = (handleOnImageRef: any, handlOnClickEdit: any, page: any, 
         },
         {
             title: 'Action',
-            width: 120,
+            width: 100,
             align: "center",
             render: (text: any, record: any, index: any) => <div>
                 <EyeOutlined style={{ color: 'orange', paddingRight: '1rem', fontSize: '1.15rem' }} onClick={handleOnImageRef}/>
@@ -66,15 +67,27 @@ export const column = (handleOnImageRef: any, handlOnClickEdit: any, page: any, 
         },
         {
             title: 'Total Amount',
-            width: 100,
+            width: 90,
             align: "center",
             render: (text: any, record: any, index: any) => `${record.total_fee}`
         },
         {
             title: 'Sign Up At',
-            width: 140,
+            width: 165,
             align: "center",
-            render: (text: any, record: any, index: any) => `${moment(moment(record.createdAt).tz('Asia/Bangkok')).format('DD/MM/YYYY hh:mm A')}`,
+            render: (text: any, record: any, index: any) => `${moment(moment(record.createdAt).tz('Asia/Bangkok')).format('DD/MM/YYYY HH:mm')} น.`,
+        },
+        {
+            title: 'Class',
+            width: 120,
+            align: "center",
+            render: (text: any, record: any, index: any) => `${record.class_no}`
+        },
+        {
+            title: 'Test List',
+            width: 150,
+            align: "center",
+            render: (text: any, record: any, index: any) => `${record.test_list.map((item: string, index: number) => `${index >= 1 ? ' ' + convertToTestTaking(item) : convertToTestTaking(item)}`)}`
         },
         {
             title: 'Last Update By',
