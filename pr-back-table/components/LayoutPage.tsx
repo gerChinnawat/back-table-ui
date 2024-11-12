@@ -20,11 +20,11 @@ const LayoutPage = ({ children }: { children: React.ReactNode }) => {
     const router = useRouter();
     const key = useStore((state: any) => state.key)
     const getKey = useStore((state:any) => state.getKey)
+    const email = useStore((state:any) => state.email)
     const {
         token: { colorBgContainer, borderRadiusLG },
     } = theme.useToken();
 
-    const email = localStorage?.getItem("user_email");
     const handleOnClick = ({ key } : { key: string }) => {
         router.push(key);
         getKey(key);

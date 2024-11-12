@@ -24,6 +24,7 @@ const LoginScreen = () => {
     const [messageApi, contextHolder] = message.useMessage();
     const router = useRouter();
     const getKey = useStore((state:any) => state.getKey);
+    const getUserEmail = useStore((state:any) => state.getUserEmail)
 
     const handleOnLogin = async () => {
         const res = await userLogin(sentState)
@@ -32,7 +33,7 @@ const LoginScreen = () => {
         } else {
             const decoed_token = jwt.decode(res?.response?.data[0]);
             const email = (decoed_token as JwtPayload).data?.email;
-            localStorage.setItem("user_email", email);
+            getUserEmail(email)
 
             onMessageSend({ isSuccess: true, message: res?.response?.message })
             localStorage.setItem("key", res?.response?.data[0])

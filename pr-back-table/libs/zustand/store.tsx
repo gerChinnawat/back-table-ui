@@ -3,6 +3,7 @@ import { persist, createJSONStorage } from 'zustand/middleware';
 import { createKeySidebarSlice } from './slices/createKeySidebarSlice';
 import { createTaskTakingDetailSlice } from './slices/createTaskTakingDetailSlice';
 import { createTransactionSlice } from './slices/createTransactionSlice';
+import { createLoginSlice } from './slices/loginSlice';
 
 export const useStore = create(
     persist(
@@ -10,6 +11,7 @@ export const useStore = create(
                 ...createKeySidebarSlice(set),
                 ...createTaskTakingDetailSlice(set),
                 ...createTransactionSlice(set),
+                ...createLoginSlice(set),
                 }
             )
         ,
