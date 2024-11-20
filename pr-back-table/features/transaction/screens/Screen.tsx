@@ -10,7 +10,9 @@ import updateTransaction from "../services/updateTransaction";
 import EditTransactionModal from "../components/EditModal";
 import { useStore } from "@/libs/zustand/store";
 import SearchForm from "./../components/SearchForm"
-
+import _ from "lodash";
+import { convertToTestTaking } from "@/utils/convertToTestTaking";
+import moment from "moment";
 interface TransactionBody {
     year: string;
     page: number;
@@ -24,20 +26,33 @@ const TransactionScreen = () => {
         year: '2024',
         page: 1,
         pageSize: 15,
-        pageTotal: 1
     });
+    const [csvData, setCsvData] = useState([]);
     const [selectedRecord, setSelectedRecord] = useState<any>()
     const [visible, setVisible] = useState(false);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const getTransaction = useStore((state:any) => state.getTransaction);
     const updatedTransaction = useStore((state:any) => state.transaction);
 
+
     useEffect(() => {
         handleGetTransaction(body);
+        handleGetCsvData({
+            ...body,
+            page: 1,
+            pageSize: 0,
+        });
     }, [])
 
     const handleOnOpen = () => {
 
+    };
+
+    const handleGetCsvData = async ( transactionBody : TransactionBody) => {
+        const res = await getTransactions(transactionBody);
+        if (res?.success) {
+            setCsvData(res?.response?.data?.transactionData);
+        };
     };
 
     const handleGetTransaction = async ( transactionBody : TransactionBody) => {
@@ -94,8 +109,18 @@ const TransactionScreen = () => {
         };
     };
 
-    const handleOnFinish = () => {
-
+    const handleOnFinish = (values: any) => {
+        const updateBody = {
+            page: 1,
+            pageSize: body?.pageSize,
+            ...values,
+        };
+        handleGetTransaction(updateBody);
+        handleGetCsvData({
+            ...values,
+            page: 1,
+            pageSize: 0,
+        });
     };
 
     const onMessageSend = ({ isSuccess, message } : { isSuccess: boolean, message: string }) => {
@@ -112,10 +137,15 @@ const TransactionScreen = () => {
             <LayoutContent
                 title="Transaction"
                 icon={<BankOutlined />}
-            >
-                {/* <SearchForm
-                    handleOnFinish={handleOnFinish}
-                /> */}
+                formSearch={<SearchForm handleOnFinish={handleOnFinish} csvData={csvData.map((item: any) => {
+                    return {
+                        ..._.omit(item, ["image_ref"]),
+                        test_list: item.test_list.map((test_list_item: string, index: number) => `${index >= 1 ? ' ' + convertToTestTaking(test_list_item) : convertToTestTaking(test_list_item)}`),
+                        createdAt: moment(item?.createdAt).format("DD/MM/YYYY HH:mm"),
+                        phone_number: `${item?.phone_number}`
+                    }
+                })} />}
+            >   
                 <Row>
                     <Col xs={24} sm={24} md={42} lg={24} xl={24} xxl={24}>
                         <Table
