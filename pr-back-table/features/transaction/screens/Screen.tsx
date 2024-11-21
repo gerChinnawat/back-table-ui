@@ -26,10 +26,15 @@ const TransactionScreen = () => {
         year: '2024',
         page: 1,
         pageSize: 15,
+        testLevel: "",
+        classNo: "",
+        status: "",
+        firstname: "",
     });
     const [csvData, setCsvData] = useState([]);
     const [selectedRecord, setSelectedRecord] = useState<any>()
     const [visible, setVisible] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const getTransaction = useStore((state:any) => state.getTransaction);
     const updatedTransaction = useStore((state:any) => state.transaction);
@@ -56,15 +61,18 @@ const TransactionScreen = () => {
     };
 
     const handleGetTransaction = async ( transactionBody : TransactionBody) => {
+        setIsLoading(true);
         const res = await getTransactions(transactionBody);
         if (res?.success) {
             setTransaction(res?.response?.data?.transactionData);
-            setBody({
-                year: '2024',
+            const updateBodt = {
+                ...transactionBody,
                 page: res?.response?.data?.page,
                 pageSize: res?.response?.data?.pageSize,
                 pageTotal: res?.response?.data?.totalPages,
-            })
+            };
+            setBody(updateBodt);
+            setIsLoading(false);
         }
     };
 
@@ -89,16 +97,12 @@ const TransactionScreen = () => {
         })
         onMessageSend({ isSuccess: res.success, message: res.response.message })
         if (res.success) {
-            getTransactions({
-                year: '2024',
-                page: body.page,
-                pageSize: body.pageSize,
-            })
+            getTransactions(body)
             .then((res) => {
                 if(res?.success) {
                     setTransaction(res?.response?.data?.transactionData);
                     setBody({
-                        year: '2024',
+                        ...body,
                         page: res?.response?.data?.page,
                         pageSize: res?.response?.data?.pageSize,
                         pageTotal: res?.response?.data?.totalPages,
@@ -111,6 +115,7 @@ const TransactionScreen = () => {
 
     const handleOnFinish = (values: any) => {
         const updateBody = {
+            year: '2024',
             page: 1,
             pageSize: body?.pageSize,
             ...values,
@@ -120,6 +125,7 @@ const TransactionScreen = () => {
             ...values,
             page: 1,
             pageSize: 0,
+            year: '2024',
         });
     };
 
@@ -137,7 +143,7 @@ const TransactionScreen = () => {
             <LayoutContent
                 title="Transaction"
                 icon={<BankOutlined />}
-                formSearch={<SearchForm handleOnFinish={handleOnFinish} csvData={csvData.map((item: any) => {
+                formSearch={<SearchForm handleOnFinish={handleOnFinish} loading={isLoading} csvData={csvData.map((item: any) => {
                     return {
                         ..._.omit(item, ["image_ref"]),
                         test_list: item.test_list.map((test_list_item: string, index: number) => `${index >= 1 ? ' ' + convertToTestTaking(test_list_item) : convertToTestTaking(test_list_item)}`),
@@ -160,6 +166,12 @@ const TransactionScreen = () => {
                                 showSizeChanger: true, 
                                 pageSizeOptions: ['10', '20', '50'],
                                 onChange: (page, pageSize ) => {
+                                    const updateBody = {
+                                        ...body,
+                                        page: page,
+                                        pageSize: pageSize,
+                                    };
+
                                     handleGetTransaction({
                                         ...body,
                                         page: page,

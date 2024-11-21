@@ -21,10 +21,10 @@ const SearchForm = ({ handleOnFinish, loading, csvData }: any) => {
                 status: "",
                 firstname: "",
             }}
-            style={{ borderRadius: "6px", marginLeft: '1rem' }}
+            style={{ borderRadius: "6px", marginLeft: '0.5rem' }}
         >
             <Row align='middle'>
-                <Col style={{ marginTop: '1.5rem', marginInline: '0.5rem' }}>
+                {/* <Col style={{ marginTop: '1.5rem', marginInline: '0.5rem' }}>
                     <Form.Item
                         label="Year :"
                         name="year"
@@ -42,13 +42,13 @@ const SearchForm = ({ handleOnFinish, loading, csvData }: any) => {
                             })}
                         </Select>
                     </Form.Item>
-                </Col>
+                </Col> */}
                 <Col style={{ marginTop: '1.5rem', marginInline: '0.5rem' }}>
                     <Form.Item
                         label="Test Level :"
                         name="testLevel"
                         required
-                        style={{ width: "10rem" }}
+                        style={{ width: "11rem" }}
                     >
                         <Select defaultValue={''}>
                             {testLevelList.map((item) => {
@@ -129,7 +129,7 @@ const SearchForm = ({ handleOnFinish, loading, csvData }: any) => {
                         </CSVLink>
                     </Button>
                 </Col>
-                <Col style={{ marginInline: '0.25rem' }}>
+                {/* <Col style={{ marginInline: '0.25rem' }}>
                     <Button
                         htmlType="submit"
                         type='default'
@@ -138,7 +138,7 @@ const SearchForm = ({ handleOnFinish, loading, csvData }: any) => {
                     >
                         Import
                     </Button>
-                </Col>
+                </Col> */}
             </Row>
         </Form>
     );
