@@ -79,7 +79,7 @@ export const classList = [
     {
         id: 1,
         classNo: "ประถม",
-        value: 'ประถม',
+        value: 'ประถมศึกษา',
     },
     {
         id: 2,

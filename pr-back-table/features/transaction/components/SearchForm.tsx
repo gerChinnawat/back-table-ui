@@ -67,9 +67,9 @@ const SearchForm = ({ handleOnFinish, loading, csvData }: any) => {
                         style={{ width: "9rem" }}
                     >
                         <Select defaultValue={''}>
-                            {testLevelList.map((item) => {
+                            {classList.map((item) => {
                                 return (
-                                    <Select.Option key={item.id} value={item.value} >{item.name}</Select.Option>
+                                    <Select.Option key={item.id} value={item.value} >{item.classNo}</Select.Option>
                                 );
                             })}
                         </Select>
