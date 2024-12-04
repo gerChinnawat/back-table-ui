@@ -25,7 +25,7 @@ export const statusList = [
     {
         id: 4,
         name: "Cancle",
-        value: "Cancle",
+        value: "cancle",
     },
 ];
 
