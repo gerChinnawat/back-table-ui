@@ -115,7 +115,6 @@ const TransactionScreen = () => {
 
     const handleOnFinish = (values: any) => {
         const updateBody = {
-            year: '2024',
             page: 1,
             pageSize: body?.pageSize,
             ...values,
@@ -125,7 +124,6 @@ const TransactionScreen = () => {
             ...values,
             page: 1,
             pageSize: 0,
-            year: '2024',
         });
     };
 
