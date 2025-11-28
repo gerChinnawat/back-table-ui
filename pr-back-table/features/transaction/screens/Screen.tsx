@@ -23,7 +23,7 @@ const TransactionScreen = () => {
     const [messageApi, contextHolder] = message.useMessage();
     const [transaction, setTransaction] = useState<any[]>([]);
     const [body, setBody] = useState<any>({
-        year: '2024',
+        year: '2025',
         page: 1,
         pageSize: 15,
         testLevel: "",
@@ -152,43 +152,41 @@ const TransactionScreen = () => {
                     }
                 })} />}
             >   
-                <Row>
-                    <Col xs={24} sm={24} md={42} lg={24} xl={24} xxl={24}>
-                        <Table
-                            columns={column(handleOnImageRef, handlOnClickEdit, body.page, body.pageSize)}
-                            dataSource={ transaction || []}
-                            rowKey="id"
-                            scroll={{ y: '50vh', x: 'max-content' }}                      
-                            pagination={{
-                                current: body.page,
-                                total: body.pageTotal,
-                                pageSize: body.pageSize, 
-                                showSizeChanger: true, 
-                                pageSizeOptions: ['10', '20', '50'],
-                                onChange: (page, pageSize ) => {
-                                    const updateBody = {
-                                        ...body,
-                                        page: page,
-                                        pageSize: pageSize,
-                                    };
+                <Table
+                    columns={column(handleOnImageRef, handlOnClickEdit, body.page, body.pageSize)}
+                    dataSource={ transaction || []}
+                    rowKey="id"
+                    style={{ overflowY: "scroll" }}
+                    scroll={{ x: 'max-content' }}                      
+                    pagination={{
+                        style: { marginInline: 24 },
+                        current: body.page,
+                        total: body.pageTotal,
+                        pageSize: body.pageSize, 
+                        showSizeChanger: true, 
+                        pageSizeOptions: ['10', '20', '50'],
+                        onChange: (page, pageSize ) => {
+                            const updateBody = {
+                                ...body,
+                                page: page,
+                                pageSize: pageSize,
+                            };
 
-                                    handleGetTransaction({
-                                        ...body,
-                                        page: page,
-                                        pageSize: pageSize,
-                                    })
-                                },
-                                locale: { items_per_page: '' },
-                            }}
-                            onRow={(record) => ({
-                                onClick: () => {
-                                    setSelectedRecord(record)
-                                    getTransaction(record)
-                                },
-                            })}
-                        />
-                    </Col>
-                </Row>
+                            handleGetTransaction({
+                                ...body,
+                                page: page,
+                                pageSize: pageSize,
+                            })
+                        },
+                        locale: { items_per_page: '' },
+                    }}
+                    onRow={(record) => ({
+                        onClick: () => {
+                            setSelectedRecord(record)
+                            getTransaction(record)
+                        },
+                    })}
+                />
                 <Image
                     src={selectedRecord?.image_ref || ''}
                     alt="Pay slip"

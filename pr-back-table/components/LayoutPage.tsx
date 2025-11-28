@@ -16,7 +16,7 @@ import DropdownList from './Dropdown';
 const { Header, Sider, Content} = Layout;
 
 const LayoutPage = ({ children }: { children: React.ReactNode }) => {
-    const [collapsed, setCollapsed] = useState(false);
+    const [collapsed, setCollapsed] = useState(true);
     const router = useRouter();
     const key = useStore((state: any) => state.key)
     const getKey = useStore((state:any) => state.getKey)
@@ -60,8 +60,8 @@ const LayoutPage = ({ children }: { children: React.ReactNode }) => {
         </Sider>
         <Layout>
             <Header style={{ padding: 0, background: colorBgContainer }}>
-                <Row justify={"space-between"}>
-                    <Button
+                <Row justify={"end"}>
+                    {/* <Button
                         type="text"
                         icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
                         onClick={() => setCollapsed(!collapsed)}
@@ -70,7 +70,7 @@ const LayoutPage = ({ children }: { children: React.ReactNode }) => {
                         width: 64,
                         height: 64,
                         }}
-                    />
+                    /> */}
                     <div>
                         <a style={{ marginRight: '1rem', fontSize: '0.9rem' }}>{email}</a>
                         <DropdownList>

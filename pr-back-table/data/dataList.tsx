@@ -1,6 +1,11 @@
 export const yearList = [
     {
         id: 1,
+        name: "2025",
+        value: "2025",
+    },
+    {
+        id: 2,
         name: "2024",
         value: "2024",
     },

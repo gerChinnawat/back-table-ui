@@ -15,25 +15,22 @@ const SearchForm = ({ handleOnFinish, loading, csvData }: any) => {
             layout="horizontal"
             onFinish={onFinish}
             initialValues={{
-                year: "2024",
+                year: "2025",
                 testLevel: "",
                 classNo: "",
                 status: "",
                 firstname: "",
             }}
-            style={{ borderRadius: "6px", marginLeft: '0.5rem' }}
         >
-            <Row align='middle'>
-                {/* <Col style={{ marginTop: '1.5rem', marginInline: '0.5rem' }}>
+            <div style={{ display: "flex", alignItems: "center", flexWrap: "wrap", gap: "10px" }}>
                     <Form.Item
                         label="Year :"
                         name="year"
                         required
-                        style={{ width: "9rem" }}
+                        style={{ minWidth: "9rem", marginBottom: 0 }}
                     >
                         <Select
-                            defaultValue={"2024"}
-                            disabled
+                            defaultValue={"2025"}
                         >
                             {yearList.map((item) => {
                                 return (
@@ -42,13 +39,11 @@ const SearchForm = ({ handleOnFinish, loading, csvData }: any) => {
                             })}
                         </Select>
                     </Form.Item>
-                </Col> */}
-                <Col style={{ marginTop: '1.5rem', marginInline: '0.5rem' }}>
                     <Form.Item
                         label="Test Level :"
                         name="testLevel"
                         required
-                        style={{ width: "11rem" }}
+                        style={{ minWidth: "11rem", marginBottom: 0 }}
                     >
                         <Select defaultValue={''}>
                             {testLevelList.map((item) => {
@@ -58,13 +53,11 @@ const SearchForm = ({ handleOnFinish, loading, csvData }: any) => {
                             })}
                         </Select>
                     </Form.Item>
-                </Col>
-                <Col style={{ marginTop: '1.5rem', marginInline: '0.5rem' }}>
                     <Form.Item
                         label="Class :"
                         name="classNo"
                         required
-                        style={{ width: "9rem" }}
+                        style={{ minWidth: "9rem", marginBottom: 0 }}
                     >
                         <Select defaultValue={''}>
                             {classList.map((item) => {
@@ -74,13 +67,11 @@ const SearchForm = ({ handleOnFinish, loading, csvData }: any) => {
                             })}
                         </Select>
                     </Form.Item>
-                </Col>
-                <Col style={{ marginTop: '1.5rem', marginInline: '0.5rem' }}>
                     <Form.Item
                         label="Status :"
                         name="status"
                         required
-                        style={{ width: "11rem" }}
+                        style={{ minWidth: "11rem", marginBottom: 0 }}
                     >
                         <Select defaultValue={'all'}>
                             {statusList.map((item) => {
@@ -90,17 +81,13 @@ const SearchForm = ({ handleOnFinish, loading, csvData }: any) => {
                             })}
                         </Select>
                     </Form.Item>
-                </Col>
-                <Col style={{ marginTop: '1.5rem', marginInline: '0.5rem' }}>
                     <Form.Item
                         label="Firstname :"
                         name="firstname"
-                        style={{ width: "13rem" }}
+                        style={{ minWidth: "10rem", marginBottom: 0 }}
                     >
                         <Input id="firstname" />
                     </Form.Item>
-                </Col>
-                <Col style={{ marginInline: '0.25rem' }}>
                     <Button
                         htmlType="submit"
                         type="primary"
@@ -109,8 +96,6 @@ const SearchForm = ({ handleOnFinish, loading, csvData }: any) => {
                     >
                         Search
                     </Button>
-                </Col>
-                <Col style={{ marginInline: '0.25rem' }}>
                     <Button
                         htmlType="submit"
                         type='default'
@@ -128,7 +113,6 @@ const SearchForm = ({ handleOnFinish, loading, csvData }: any) => {
                             Export
                         </CSVLink>
                     </Button>
-                </Col>
                 {/* <Col style={{ marginInline: '0.25rem' }}>
                     <Button
                         htmlType="submit"
@@ -139,7 +123,7 @@ const SearchForm = ({ handleOnFinish, loading, csvData }: any) => {
                         Import
                     </Button>
                 </Col> */}
-            </Row>
+            </div>
         </Form>
     );
 };
