@@ -18,7 +18,7 @@ const LayoutContent = ({ children, title, icon, formSearch } : { children: React
                     {formSearch}</div>
             </div>
             <div
-                className="max-h-[20vh] overflow-y-auto md:max-h-[70vh]"
+                className="max-h-[60vh] overflow-y-auto md:max-h-[70vh]"
                 style={{
                     background: "white",
                     border: "solid 1px  #E7E8EA",
