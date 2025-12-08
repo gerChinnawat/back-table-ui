@@ -32,7 +32,7 @@ const LayoutPage = ({ children }: { children: React.ReactNode }) => {
 
     return (
     <Layout className='h-full min-h-[100vh]'>
-        <Sider trigger={null} collapsible collapsed={collapsed}>
+        <Sider trigger={null} collapsible collapsed={collapsed} className='hidden md:block'>
             <div className="demo-logo-vertical" />
             <Menu
                 theme="dark"
